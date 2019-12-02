@@ -10,7 +10,7 @@
     "grunt": "node ./node_modules/grunt-cli/bin/grunt",
     "lint": "node ./node_modules/eslint/bin/eslint.js .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": ""
+    "deploy": "rimraf public && hugo && gh-pages -d public -b master"
   },
   "repository": {
     "type": "git",
@@ -50,7 +50,8 @@
     "node-sass": "4.12.0"
   },
   "dependencies": {
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "rimraf": "^3.0.0"
   },
   "engines": {
     "node": ">=6.13.1"
