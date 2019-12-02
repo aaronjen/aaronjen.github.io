@@ -1,0 +1,11 @@
+#sidebar {
+  background: rgba(17, 26, 35, 0.45);
+}
+
+#main {
+  min-height: calc(100% - 15px);
+}
+
+.postShorten-group, #categories-archives, #tags-archives {
+  min-height: calc(100vh - 155px);
+}
