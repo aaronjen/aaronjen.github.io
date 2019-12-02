@@ -5,5 +5,5 @@
 assets
 node_modules
 src/_bower_components
-
+public/
 
