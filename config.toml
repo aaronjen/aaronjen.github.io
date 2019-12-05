@@ -118,7 +118,7 @@ canonifyurls = true
   # If false it will flat categories.
   hierarchicalCategories = true
 
-  description = "Hugo tranquilpeak theme demo"
+  description = "Aaron's Blog: 任精瑋的個人部落格，紀錄一些工作上使用的工具、分享如何解決遇到的問題。"
 
   # Customization
   # Define the behavior of the sidebar
