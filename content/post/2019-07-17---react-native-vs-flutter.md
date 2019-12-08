@@ -24,7 +24,7 @@ description: "在這篇文章中不會有完整的比較，只是分享一些使
 
 在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。
 
-![RNvsFlutter](./images/RNvsFlutter.png)
+![RNvsFlutter](/imgs/RNvsFlutter.png)
 
 **效能比較：**
 

@@ -82,7 +82,7 @@ export const emojiIsCool = () => (
 
 可以看到旁邊選項的 title 有改變，如下圖:
 
-![example1](./images/storybook-example1.png)
+![example1](/imgs/storybook-example1.png)
 
 Storybook 建立 Story(也就是旁邊選項)的格式有三種：
 1. [Component Story Format (CSF)](https://storybook.js.org/docs/formats/component-story-format/)
@@ -115,7 +115,7 @@ module.exports = ['@storybook/addon-docs/react/preset'];
 
 應該就可以看到上方有多一個 `Docs` 的 Tab，裡面就是我們所想要自動產生的 DOC!!!
 
-![example2](images/storybook-example2.png)
+![example2](/imgs/storybook-example2.png)
 
 這時後我們就可以加入自己的 component 與 story了。
 __注意： story 需要加在 `src/stories` 裡面，並且命名 `**.stories.js` 才吃的到__
@@ -185,7 +185,7 @@ export const MyButton2 = () => {
 
 可以注意到以下紅筐的部分：
 
-![example3](images/storybook-example3.png)
+![example3](/imgs/storybook-example3.png)
 
 這是最神奇的地方，裡面的內容是透過 compoent 的 propTypes 與 defaultProps 產生出來的，等於只要做平常的工作，建立好完整的 type checking 機制後，再補上一些註解，Storybook 就可以幫你自動產生文件！！
 
