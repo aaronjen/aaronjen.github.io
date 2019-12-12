@@ -9,3 +9,19 @@
 .postShorten-group, #categories-archives, #tags-archives {
   min-height: calc(100vh - 155px);
 }
+
+.postShorten .postShorten-content, .postShorten .postShorten-excerpt {
+  font-family: "Open Sans",sans-serif;
+}
+
+dl, ol, ul {
+  margin: .5em 0 .5em 0;
+}
+
+.post .post-content {
+  font-family: "Open Sans",sans-serif;
+}
+
+strong {
+  font-weight: bolder;
+}

@@ -13,8 +13,7 @@ keywords:
 - gatsby
 - blog
 description: 分享一下當初如何選擇 static site generator 做部落格框架，又是如何從 Gatsby 跳槽到 Hugo。
-thumbnailImage: /imgs/gatsby-hugo.jpg
-# thumbnailImagePosition: left
+coverImage: /imgs/gatsby-hugo.jpg
 ---
 
 在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。

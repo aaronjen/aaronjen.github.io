@@ -105,7 +105,7 @@ canonifyurls = true
   # dateFormat = "2 January 2006"
 
   # Global keywords configuration. Following keywords will be add to every pages
-  # keywords = ["development", "next-gen"]
+  keywords = ["development", "blog"]
 
   # Syntax highlighter, possible choice between: "highlight.js" (recommanded) and "prism.js" (experimental)
   # You can comment it to disable syntax highlighting
@@ -118,7 +118,7 @@ canonifyurls = true
   # If false it will flat categories.
   hierarchicalCategories = true
 
-  description = "Aaron's Blog: 任精瑋的個人部落格，紀錄一些工作上使用的工具、分享如何解決遇到的問題。"
+  description = "Aaron's Blog: 任精瑋的個人部落格，分享與紀錄前後端工具、工作上的想法和問題解法。"
 
   # Customization
   # Define the behavior of the sidebar
@@ -204,11 +204,11 @@ canonifyurls = true
   [params.header.rightLink]
     class = ""
     icon = ""
-    url = "/#about"
+    url = "/"
 
   # Customize link of author avatar in sidebar
-  # [params.sidebar.profile]
-  #   url = "/#about"
+  [params.sidebar.profile]
+    url = "/"
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights Reserved"
   # [params.footer]
