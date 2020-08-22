@@ -1,12 +1,12 @@
 baseURL = "https://axiom-example.netlify.app"
 
-title = "Axiom Example"
-languageCode = "en-us"
+title = "Aaron Jen's Blog"
+languageCode = "zh-tw"
 defaultContentLanguage = "en"
 
 theme = "axiom"
 
-paginate = 2
+paginate = 5
 canonifyURLs = false
 summaryLength = 40
 rssLimit = 100
@@ -19,25 +19,25 @@ posts = "/:filename"
 
 [params]
 mainSections = ["posts"]
-copyrightYear = 2019
+copyrightYear = 2020
 # Go Reference time: Mon Jan 2 15:04:05 MST 2006
 dateFormat = "Jan 2, 2006 3:04PM"
 highlight = "dark"
 
 [params.brand]
-domain = "example.com"
-email = "info@example.com"
+domain = "test.com"
+email = "aaron821124@gmail.com"
 
 [params.social]
 facebook = "https://www.facebook.com/user_or_page"
-github = "https://github.com/user"
+github = "https://github.com/bugarma"
 instagram = "https://instagram.com/user"
 linkedin = "https://www.linkedin.com/in/user"
 pinterest = "https://www.pinterest.com/user"
 stackoverflow = "https://stackoverflow.com/users/user"
 twitter = "https://twitter.com/axiomtheme"
 youtube = "https://www.youtube.com/user"
-footer = ["twitter", "github", "instagram"]
+footer = ["github"]
 
 [params.services]
 googleAnalyticsId = "UA-160259978-2"
@@ -54,7 +54,7 @@ disqusShortname = ""
 
 [params.logo]
 inline = true
-path = "image/brand/logo.svg"
+# path = "image/brand/logo.svg"
 
 [params.image]
 width = "2048"
@@ -145,10 +145,10 @@ url = "/contact/"
 name = "Contact"
 weight = 3
 
-[[menu.foot]]
-url = "/privacy/"
-name = "Privacy"
-weight = 4
+# [[menu.foot]]
+# url = "/privacy/"
+# name = "Privacy"
+# weight = 4
 
 [languages]
 [languages."en"]
