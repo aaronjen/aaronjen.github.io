@@ -135,15 +135,15 @@ url = "/posts/"
 name = "Posts"
 weight = 1
 
-[[menu.foot]]
-url = "/about/"
-name = "About"
-weight = 2
+# [[menu.foot]]
+# url = "/about/"
+# name = "About"
+# weight = 2
 
-[[menu.foot]]
-url = "/contact/"
-name = "Contact"
-weight = 3
+# [[menu.foot]]
+# url = "/contact/"
+# name = "Contact"
+# weight = 3
 
 # [[menu.foot]]
 # url = "/privacy/"
