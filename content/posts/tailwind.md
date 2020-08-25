@@ -5,6 +5,7 @@ author: "default"
 title: "Tailwind"
 subtitle: "Suggested 25 words / 125 chars. Used in metadata, and content summaries."
 # feature: "image/page-default.webp"
+draft: true
 ---
 
 first post
