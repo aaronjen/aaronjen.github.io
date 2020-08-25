@@ -4,9 +4,7 @@ date: "2019-11-09T12:00:00.000Z"
 template: "post"
 draft: false
 slug: "storybook-intruduction"
-categories: 
-  - Frontend
-  - React
+category: Frontend
 tags:
   - "React"
   - "create-react-app"

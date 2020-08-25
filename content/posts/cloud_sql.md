@@ -4,6 +4,7 @@ lastmod: 2020-08-25T07:00:00Z
 author: "default"
 title: "GCP - Cloud SQL 的連線方式（cloud sql proxy）"
 subtitle: "簡介使用 Google cloud_sql_proxy 的連線方式"
+category: Backend
 ---
 
 Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。

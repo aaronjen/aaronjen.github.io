@@ -3,7 +3,7 @@ title: 開發工具分享
 date: "2019-08-19T12:00:00.000Z"
 draft: false
 slug: "develop-tool"
-category: "Develop Tools"
+category: "Tool"
 tags:
   - "Develop tool"
   - "vscode"

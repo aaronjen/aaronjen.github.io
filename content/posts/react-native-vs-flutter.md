@@ -4,7 +4,7 @@ date: "2019-07-19T12:00:00.000Z"
 template: "post"
 draft: false
 slug: "react-native-vs-flutter"
-category: "Mobile App"
+category: Frontend
 tags:
   - "React Native"
   - "Flutter"

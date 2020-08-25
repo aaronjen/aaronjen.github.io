@@ -5,6 +5,7 @@ author: "default"
 title: "Golang - Concurrency 與 Parallelism 的差別"
 subtitle: "Concurrency 與 Parallelism 的差別，Golang 又要如何才能 Parallel?"
 feature: "https://imgur.com/ZFaGV3m.jpg"
+category: Backend
 ---
 
 ## CONCURRENCY, PARALLELISM 與 GOMAXPROCS

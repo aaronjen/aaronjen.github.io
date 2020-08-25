@@ -1,9 +1,7 @@
 ---
 title: "Hugo & Gatsby"
 date: 2019-12-05T23:41:55+08:00
-categories:
-- Frontend
-- Blog
+category: Frontend
 tags:
 - hugo
 - gatsby

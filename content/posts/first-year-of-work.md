@@ -2,8 +2,7 @@
 title: "全端工程師工作的第一年"
 slug: first year of work
 date: 2019-12-09T17:32:46+08:00
-categories:
-- Career
+category: Life
 tags:
 - Frontend
 - Backend
