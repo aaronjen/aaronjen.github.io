@@ -135,24 +135,29 @@ name = "All Posts"
 weight = 1
 
 [[menu.main]]
+url = "/category/general/"
+name = "General"
+weight = 2
+
+[[menu.main]]
 url = "/category/frontend/"
 name = "Frontend"
-weight = 2
+weight = 3
 
 [[menu.main]]
 url = "/category/backend/"
 name = "Backend"
-weight = 3
+weight = 4
 
 [[menu.main]]
 url = "/category/tool/"
 name = "Tool"
-weight = 4
+weight = 5
 
 [[menu.main]]
 url = "/category/life/"
 name = "Life"
-weight = 5
+weight = 6
 
 [[menu.foot]]
 url = "/posts/"
