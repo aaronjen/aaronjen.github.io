@@ -44,7 +44,7 @@ youtube = "https://www.youtube.com/user"
 footer = ["github"]
 
 [params.services]
-googleAnalyticsId = "UA-160259978-2"
+googleAnalyticsId = "UA-146444315-1"
 googleTagManagerId = ""
 googleAdsId = ""
 googleAdsenseId = ""
