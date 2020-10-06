@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://aaronjen.github.io"
 
 title = "Aaron Jen's Blog"
 languageCode = "zh-tw"
@@ -34,7 +34,7 @@ email = "aaron821124@gmail.com"
 
 [params.social]
 facebook = "https://www.facebook.com/user_or_page"
-github = "https://github.com/bugarma"
+github = "https://github.com/aaronjen"
 instagram = "https://instagram.com/user"
 linkedin = "https://www.linkedin.com/in/user"
 pinterest = "https://www.pinterest.com/user"
