@@ -112,7 +112,7 @@ suffixes = ["atom"]
 [markup.goldmark.extensions]
 definitionList = false
 footnote = true
-linkify = false
+linkify = true
 strikethrough = false
 table = true
 taskList = false
