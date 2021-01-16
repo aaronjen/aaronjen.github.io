@@ -1,1 +1,10 @@
 /* src custom css */
+.mobile-menu {
+  transition: max-height 0.5s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.mobile-menu.menu-active {
+  max-height: 580px;
+}
