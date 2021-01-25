@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2020-09-11-gke-ingress-sticky-session/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>在 GCP/GKE 的 Ingress 設定 sticky session : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="在 GCP/GKE 的 Ingress 設定 sticky session">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2020-09-11-gke-ingress-sticky-session/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="Ingress Sticky Session 先備知識  kubernetes 架構知識 kubectl 操作 稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定 有連結帳單與信用卡的 GCP 帳號  Note 這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。 kubernetes 最基本元件  Pod Service Deployment Ingress  Ingress 架構 簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。">
+<meta name="description" content="Ingress Sticky Session 先備知識  kubernetes 架構知識 kubectl 操作 稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定 有連結帳單與信用卡的 GCP 帳號  Note 這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。 kubernetes 最基本元件  Pod Service Deployment Ingress  Ingress 架構 簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。">
+<meta property="og:updated_time" content="2020-09-11T09:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2020-09-11T09:00:00Z">
+<meta property="article:modified_time" content="2020-09-11T09:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "在 GCP/GKE 的 Ingress 設定 sticky session",
+  "alternativeHeadline": "簡單介紹一下 Google Ingress 設定 sticky session 的方法",
+  "url": "https://aaronjen.github.io/2020-09-11-gke-ingress-sticky-session/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2020-09-11-gke-ingress-sticky-session/"
+  },
+  "description": "Ingress Sticky Session 先備知識  kubernetes 架構知識 kubectl 操作 稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定 有連結帳單與信用卡的 GCP 帳號  Note 這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。 kubernetes 最基本元件  Pod Service Deployment Ingress  Ingress 架構 簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2020-09-11T09:00:00Z",
+  "dateModified": "2020-09-11T09:00:00Z",
+  "articleBody": "\u003ch2 id=\"ingress-sticky-session\"\u003eIngress Sticky Session\u003c/h2\u003e\n\u003ch3 id=\"先備知識\"\u003e先備知識\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003ekubernetes 架構知識\u003c/li\u003e\n\u003cli\u003ekubectl 操作\u003c/li\u003e\n\u003cli\u003e稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定\u003c/li\u003e\n\u003cli\u003e有連結帳單與信用卡的 GCP 帳號\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"note\"\u003eNote\u003c/h3\u003e\n\u003cp\u003e這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。\u003c/p\u003e\n\u003ch3 id=\"kubernetes-最基本元件\"\u003ekubernetes 最基本元件\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003ePod\u003c/li\u003e\n\u003cli\u003eService\u003c/li\u003e\n\u003cli\u003eDeployment\u003c/li\u003e\n\u003cli\u003eIngress\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"ingress-架構\"\u003eIngress 架構\u003c/h3\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/Cg2gJEL.jpg\" alt=\"ingress\"\u003e\u003c/p\u003e\n\u003cp\u003e簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。\u003c/p\u003e\n\u003cp\u003e例如假設我們擁有 example.com 的 host 我們就可以：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eservice-a.example.com -\u0026gt; service-a -\u0026gt; service-a pods\nservice-b.example.com -\u0026gt; service-b -\u0026gt; service-b pods\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e建立這樣的 routing，我們只需要一個 Ingress、一個對外的 ip 就可以達成。當我們有一堆 Services 時也不用開一堆 ip。\u003c/p\u003e\n\u003cp\u003e除了 domain name 的 routing，path 也可以做 routing：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eservice.example.com/api/a -\u0026gt; A service -\u0026gt; A pods\nservice.example.com/api/b -\u0026gt; B service -\u0026gt; B pods\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eGKE Ingress 還有許多 features， 詳細的內容可以參考 \u003ca href=\"https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=zh-tw\"\u003eGoogle 官方文件\u003c/a\u003e\u003c/p\u003e\n\u003ch3 id=\"sticky-session-簡介\"\u003esticky session 簡介\u003c/h3\u003e\n\u003cp\u003esticky session 就是當你連上一台 server 時，後續的 request 都會連到同一台 server。server 方面是透過 session affinity 這個名詞做設定。\u003c/p\u003e\n\u003cp\u003esticky session 的用途是讓 server 與 frontend 有辦法建立穩定且持續的連線，如果沒有設定 sticky session，frontend 與 server 進行 websocket 連線時，會因為 server 的 load balancer 不斷切換 server，導致 server 不認識 frontend 的 socket id，進而不斷產生重新連線使溝通無法運作。\u003c/p\u003e\n\u003ch3 id=\"在-gcegke-ingress-使用-sticky-session-的條件\"\u003e在 GCE/GKE Ingress 使用 sticky session 的條件\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003eCluster 必須是 \u003ca href=\"https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips#benefits\"\u003eVPC-native cluster\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eIngress 與 Service 之間必須建立 \u003ca href=\"https://cloud.google.com/kubernetes-engine/docs/how-to/standalone-neg\"\u003eNEG(network endpoint group)\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"實作範例\"\u003e實作範例\u003c/h3\u003e\n\u003cp\u003e要測試 ingress sticky session 我們需要先準備一個簡單的 server 來做測試。這邊我就用 GKE 官方提供的小程式來寫測試，這隻小程式會將你連接到的 Pod 的名稱會傳給你，讓你辨別是否有連接到同一台 Pod。\u003c/p\u003e\n\u003cp\u003e以下就是範例 Code:\u003c/p\u003e\n\u003cp\u003eDeployment:\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003eapiVersion\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapps/v1\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003ekind\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eDeployment\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003elabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003erun\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-app\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Label for the Deployment\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-app\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Name of Deployment\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\t\u003c/span\u003e\u003cspan class=\"k\"\u003ereplicas\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e2\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eselector\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ematchLabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003erun\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-app\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003etemplate\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Pod template\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003elabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003erun\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-app\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Labels Pods from this Deployment\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Pod specification; each Pod created by this Deployment has this specification\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003econtainers\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e- \u003cspan class=\"k\"\u003eimage\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003ek8s.gcr.io/serve_hostname\u003cspan class=\"p\"\u003e:\u003c/span\u003ev1\u003cspan class=\"m\"\u003e.4\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Application to run in Deployment\u0026#39;s Pods\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003ehostname\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Container name\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003eports\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e- \u003cspan class=\"k\"\u003econtainerPort\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e9376\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e\u003cspan class=\"k\"\u003eprotocol\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eTCP\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eBackend Config:\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003eapiVersion\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003ecloud.google.com/v1beta1\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003ekind\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eBackendConfig\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003emy-backendconfig\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003esessionAffinity\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eaffinityType\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"s2\"\u003e\u0026#34;GENERATED_COOKIE\u0026#34;\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Options: NONE, CLIENT_IP, GENERATED_COOKIE\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eaffinityCookieTtlSec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e50\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eService:\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003eapiVersion\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003ev1\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003ekind\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eService\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-svc\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Name of Service\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eannotations\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ebeta.cloud.google.com/backend-config\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"s1\"\u003e\u0026#39;{\u0026#34;default\u0026#34;: \u0026#34;my-backendconfig\u0026#34;}\u0026#39;\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ecloud.google.com/neg\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"s1\"\u003e\u0026#39;{\u0026#34;ingress\u0026#34;: true}\u0026#39;\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Creates a NEG after an Ingress is created\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Service\u0026#39;s specification\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003etype\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eClusterIP\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eselector\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003erun: neg-demo-app # Selects Pods labelled run\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-app\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eports\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e- \u003cspan class=\"k\"\u003eport\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e80\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"c\"\u003e# Service\u0026#39;s port\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eprotocol\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eTCP\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003etargetPort\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e9376\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eIngress:\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003eapiVersion\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003enetworking.k8s.io/v1beta1\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003ekind\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eIngress\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-ing\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eannotations\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ekubernetes.io/ingress.class\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"s2\"\u003e\u0026#34;gce\u0026#34;\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ebackend\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eserviceName\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eneg-demo-svc\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eservicePort\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e80\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id=\"測試\"\u003e測試\u003c/h3\u003e\n\u003cp\u003e取得 ingress IP\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-bash\" data-lang=\"bash\"\u003ekubectl get ingress my-ingress --output yaml\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eOutput\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003estatus\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eloadBalancer\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003eingress\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e- \u003cspan class=\"k\"\u003eip\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e203.0.113.1\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e可以透過 curl 或是開瀏覽器來看是不是有回應，如果沒有回應可能是 k8s 還沒有生效，可以等一段時間上個廁所，等了 10 分鐘以上還沒有生效的話，可能就要檢查一下是否有地方設定錯了。\u003c/p\u003e\n\u003cp\u003e基本上有看到 GCLB 的 cookie 就代表 sticky session 有作用。也可以重新刷新頁面幾次，看看 Pod 是不是都連到一樣的。\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/nZxNx02.png\" alt=\"Chrome Developer Tool\"\u003e\u003c/p\u003e\n\u003cp\u003eReference:\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features\"\u003eGoogle Ingress Reference\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing\"\u003eGoogle Ingress NEG\u003c/a\u003e\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">在 GCP/GKE 的 Ingress 設定 sticky session</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">簡單介紹一下 Google Ingress 設定 sticky session 的方法</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2020-09-11T09:00:00Z">Sep 11, 2020</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<h2 id="ingress-sticky-session">Ingress Sticky Session</h2>
+<h3 id="先備知識">先備知識</h3>
+<ul>
+<li>kubernetes 架構知識</li>
+<li>kubectl 操作</li>
+<li>稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定</li>
+<li>有連結帳單與信用卡的 GCP 帳號</li>
+</ul>
+<h3 id="note">Note</h3>
+<p>這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。</p>
+<h3 id="kubernetes-最基本元件">kubernetes 最基本元件</h3>
+<ul>
+<li>Pod</li>
+<li>Service</li>
+<li>Deployment</li>
+<li>Ingress</li>
+</ul>
+<h3 id="ingress-架構">Ingress 架構</h3>
+<p><img src="https://i.imgur.com/Cg2gJEL.jpg" alt="ingress"></p>
+<p>簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。</p>
+<p>例如假設我們擁有 example.com 的 host 我們就可以：</p>
+<pre><code>service-a.example.com -&gt; service-a -&gt; service-a pods
+service-b.example.com -&gt; service-b -&gt; service-b pods
+</code></pre><p>建立這樣的 routing，我們只需要一個 Ingress、一個對外的 ip 就可以達成。當我們有一堆 Services 時也不用開一堆 ip。</p>
+<p>除了 domain name 的 routing，path 也可以做 routing：</p>
+<pre><code>service.example.com/api/a -&gt; A service -&gt; A pods
+service.example.com/api/b -&gt; B service -&gt; B pods
+</code></pre><p>GKE Ingress 還有許多 features， 詳細的內容可以參考 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=zh-tw">Google 官方文件</a></p>
+<h3 id="sticky-session-簡介">sticky session 簡介</h3>
+<p>sticky session 就是當你連上一台 server 時，後續的 request 都會連到同一台 server。server 方面是透過 session affinity 這個名詞做設定。</p>
+<p>sticky session 的用途是讓 server 與 frontend 有辦法建立穩定且持續的連線，如果沒有設定 sticky session，frontend 與 server 進行 websocket 連線時，會因為 server 的 load balancer 不斷切換 server，導致 server 不認識 frontend 的 socket id，進而不斷產生重新連線使溝通無法運作。</p>
+<h3 id="在-gcegke-ingress-使用-sticky-session-的條件">在 GCE/GKE Ingress 使用 sticky session 的條件</h3>
+<ol>
+<li>Cluster 必須是 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips#benefits">VPC-native cluster</a></li>
+<li>Ingress 與 Service 之間必須建立 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/standalone-neg">NEG(network endpoint group)</a></li>
+</ol>
+<h3 id="實作範例">實作範例</h3>
+<p>要測試 ingress sticky session 我們需要先準備一個簡單的 server 來做測試。這邊我就用 GKE 官方提供的小程式來寫測試，這隻小程式會將你連接到的 Pod 的名稱會傳給你，讓你辨別是否有連接到同一台 Pod。</p>
+<p>以下就是範例 Code:</p>
+<p>Deployment:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Label for the Deployment</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Name of Deployment</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span><span class="c"># Pod template</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Labels Pods from this Deployment</span><span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w"> </span><span class="c"># Pod specification; each Pod created by this Deployment has this specification</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/serve_hostname<span class="p">:</span>v1<span class="m">.4</span><span class="w"> </span><span class="c"># Application to run in Deployment&#39;s Pods</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>hostname<span class="w"> </span><span class="c"># Container name</span><span class="w">
+</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9376</span><span class="w">
+</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span></code></pre></div><p>Backend Config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>cloud.google.com/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>BackendConfig<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-backendconfig<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">sessionAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">affinityType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;GENERATED_COOKIE&#34;</span><span class="w"> </span><span class="c"># Options: NONE, CLIENT_IP, GENERATED_COOKIE</span><span class="w">
+</span><span class="w">    </span><span class="k">affinityCookieTtlSec</span><span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span></code></pre></div><p>Service:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-svc<span class="w"> </span><span class="c"># Name of Service</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">beta.cloud.google.com/backend-config</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#34;default&#34;: &#34;my-backendconfig&#34;}&#39;</span><span class="w">
+</span><span class="w">    </span><span class="k">cloud.google.com/neg</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#34;ingress&#34;: true}&#39;</span><span class="w"> </span><span class="c"># Creates a NEG after an Ingress is created</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w"> </span><span class="c"># Service&#39;s specification</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">run: neg-demo-app # Selects Pods labelled run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c"># Service&#39;s port</span><span class="w">
+</span><span class="w">    </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">9376</span><span class="w">
+</span></code></pre></div><p>Ingress:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>networking.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-ing<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;gce&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>neg-demo-svc<span class="w">
+</span><span class="w">    </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></code></pre></div><h3 id="測試">測試</h3>
+<p>取得 ingress IP</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">kubectl get ingress my-ingress --output yaml
+</code></pre></div><p>Output</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">status</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">loadBalancer</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">ip</span><span class="p">:</span><span class="w"> </span><span class="m">203.0.113.1</span><span class="w">
+</span></code></pre></div><p>可以透過 curl 或是開瀏覽器來看是不是有回應，如果沒有回應可能是 k8s 還沒有生效，可以等一段時間上個廁所，等了 10 分鐘以上還沒有生效的話，可能就要檢查一下是否有地方設定錯了。</p>
+<p>基本上有看到 GCLB 的 cookie 就代表 sticky session 有作用。也可以重新刷新頁面幾次，看看 Pod 是不是都連到一樣的。</p>
+<p><img src="https://i.imgur.com/nZxNx02.png" alt="Chrome Developer Tool"></p>
+<p>Reference:</p>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features">Google Ingress Reference</a></p>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing">Google Ingress NEG</a></p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

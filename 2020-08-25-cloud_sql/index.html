@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2020-08-25-cloud_sql/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>GCP - Cloud SQL 的連線方式（cloud sql proxy） : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="GCP - Cloud SQL 的連線方式（cloud sql proxy）">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2020-08-25-cloud_sql/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。 這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。 連線方法  開放 IP 連線 (建議只在 development 或 prototype 使用) 利用 Google 提供的 Cloud SQL Proxy 來進行連線  開放所有 IP 連線 (建議只在 development 或 prototype 使用) 官方文件">
+<meta name="description" content="Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。 這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。 連線方法  開放 IP 連線 (建議只在 development 或 prototype 使用) 利用 Google 提供的 Cloud SQL Proxy 來進行連線  開放所有 IP 連線 (建議只在 development 或 prototype 使用) 官方文件">
+<meta property="og:updated_time" content="2020-08-25T07:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2020-08-25T07:00:00Z">
+<meta property="article:modified_time" content="2020-08-25T07:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GCP - Cloud SQL 的連線方式（cloud sql proxy）",
+  "alternativeHeadline": "簡介使用 Google cloud_sql_proxy 的連線方式",
+  "url": "https://aaronjen.github.io/2020-08-25-cloud_sql/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2020-08-25-cloud_sql/"
+  },
+  "description": "Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。 這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。 連線方法  開放 IP 連線 (建議只在 development 或 prototype 使用) 利用 Google 提供的 Cloud SQL Proxy 來進行連線  開放所有 IP 連線 (建議只在 development 或 prototype 使用) 官方文件",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2020-08-25T07:00:00Z",
+  "dateModified": "2020-08-25T07:00:00Z",
+  "articleBody": "\u003cp\u003eDatabase 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。\u003c/p\u003e\n\u003cp\u003e這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。\u003c/p\u003e\n\u003ch3 id=\"連線方法\"\u003e連線方法\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e開放 IP 連線 (建議只在 development 或 prototype 使用)\u003c/li\u003e\n\u003cli\u003e利用 Google 提供的 Cloud SQL Proxy 來進行連線\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"開放所有-ip-連線-建議只在-development-或-prototype-使用\"\u003e開放所有 IP 連線 (建議只在 development 或 prototype 使用)\u003c/h3\u003e\n\u003cp\u003e\u003ca href=\"https://cloud.google.com/sql/docs/postgres/configure-ip?hl=zh-tw\"\u003e官方文件\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e這個應該可以不用特別做介紹，把自己公司或是 Server 持有的 IP 位置加入白名單就可以透過伺服器的 IP 位置進行連線。但有 Work From Home 需求的公司或喜歡到處跑在咖啡廳的 Free lancer 可能就有點不是那麼適合，除非原本就有建立 VPN。所以，這邊就介紹一下另一種，也是官方比較推薦的連線方式。\u003c/p\u003e\n\u003ch3 id=\"利用-google-提供的-cloud-sql-proxy-來進行連線\"\u003e利用 Google 提供的 Cloud SQL Proxy 來進行連線\u003c/h3\u003e\n\u003cp\u003e\u003ca href=\"https://cloud.google.com/sql/docs/postgres/connect-admin-proxy?hl=zh-tw\"\u003e官方文件\u003c/a\u003e\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\n\u003cp\u003e下載 Cloud SQL Proxy (macOS)，windows 或 linux 請參考官方網站\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-bash\" data-lang=\"bash\"\u003ecurl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64\nchmod +x cloud_sql_proxy\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e使用 gcloud 來進行認證\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e當 gcloud 認證成功後，Cloud SQL Proxy 就會將你本機電腦(localhost)的 port 綁定連線到 SQL database\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-bash\" data-lang=\"bash\"\u003ecloud_sql_proxy -instances\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u0026lt;instance_name\u0026gt;\u003cspan class=\"o\"\u003e=\u003c/span\u003etcp:5432\n\u003cspan class=\"c1\"\u003e# 當看到 Ready for new connections 的字樣出現就成功了\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e最後只要透過本機端的 port 就可以連接上遠端的 Database 了\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"k8s-server-連線\"\u003eK8S server 連線\u003c/h3\u003e\n\u003cp\u003e建立 Service Account 並透過 Side Car(額外的 container) 的方式來建立 proxy 連線到 Cloud SQL\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-yaml\" data-lang=\"yaml\"\u003e\u003cspan class=\"k\"\u003eapiVersion\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapps/v1\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003ekind\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eDeployment\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapp_name\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003elabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapp_name\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e\u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003ereplicas\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e1\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eminReadySeconds\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e30\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003eselector\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003ematchLabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapp_name\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003estrategy\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003erollingUpdate\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003emaxSurge\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e3\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003emaxUnavailable\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"m\"\u003e1\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003etype\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eRollingUpdate\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e  \u003c/span\u003e\u003cspan class=\"k\"\u003etemplate\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003emetadata\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003elabels\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eapp_name\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e    \u003c/span\u003e\u003cspan class=\"k\"\u003espec\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003eimagePullSecrets\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e- \u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eregcred\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003erestartPolicy\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003eAlways\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003econtainers\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e- \u003cspan class=\"k\"\u003eimage\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u0026lt;主要程式\u003cspan class=\"w\"\u003e \u003c/span\u003eimage\u003cspan class=\"sd\"\u003e\u0026gt;\n\u003c/span\u003e\u003cspan class=\"sd\"\u003e        ...\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"c\"\u003e# 透過另外的 container 來建立 proxy 連線 ⬇︎\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e- \u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003ecloud-sql-proxy\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003eimage\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003egcr.io/cloudsql-docker/gce-proxy\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"m\"\u003e1.17\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003ecommand\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e- \u003cspan class=\"s2\"\u003e\u0026#34;/cloud_sql_proxy\u0026#34;\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e- \u003cspan class=\"s2\"\u003e\u0026#34;-instances=\u0026lt;instance name\u0026gt;=tcp:5432\u0026#34;\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e- \u003cspan class=\"s2\"\u003e\u0026#34;-credential_file=/secrets/service_account.json\u0026#34;\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003evolumeMounts\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e- \u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003esa\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e\u003cspan class=\"k\"\u003emountPath\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e/secrets/\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e\u003cspan class=\"k\"\u003ereadOnly\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003e\u003cspan class=\"kc\"\u003etrue\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e\u003cspan class=\"k\"\u003evolumes\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e      \u003c/span\u003e- \u003cspan class=\"k\"\u003ename\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003esa\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e        \u003c/span\u003e\u003cspan class=\"k\"\u003esecret\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003cspan class=\"w\"\u003e          \u003c/span\u003e\u003cspan class=\"k\"\u003esecretName\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"w\"\u003e \u003c/span\u003einternal-server-sa-secret\u003cspan class=\"w\"\u003e\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">GCP - Cloud SQL 的連線方式（cloud sql proxy）</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">簡介使用 Google cloud_sql_proxy 的連線方式</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2020-08-25T07:00:00Z">Aug 25, 2020</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<p>Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。</p>
+<p>這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。</p>
+<h3 id="連線方法">連線方法</h3>
+<ol>
+<li>開放 IP 連線 (建議只在 development 或 prototype 使用)</li>
+<li>利用 Google 提供的 Cloud SQL Proxy 來進行連線</li>
+</ol>
+<h3 id="開放所有-ip-連線-建議只在-development-或-prototype-使用">開放所有 IP 連線 (建議只在 development 或 prototype 使用)</h3>
+<p><a href="https://cloud.google.com/sql/docs/postgres/configure-ip?hl=zh-tw">官方文件</a></p>
+<p>這個應該可以不用特別做介紹，把自己公司或是 Server 持有的 IP 位置加入白名單就可以透過伺服器的 IP 位置進行連線。但有 Work From Home 需求的公司或喜歡到處跑在咖啡廳的 Free lancer 可能就有點不是那麼適合，除非原本就有建立 VPN。所以，這邊就介紹一下另一種，也是官方比較推薦的連線方式。</p>
+<h3 id="利用-google-提供的-cloud-sql-proxy-來進行連線">利用 Google 提供的 Cloud SQL Proxy 來進行連線</h3>
+<p><a href="https://cloud.google.com/sql/docs/postgres/connect-admin-proxy?hl=zh-tw">官方文件</a></p>
+<ol>
+<li>
+<p>下載 Cloud SQL Proxy (macOS)，windows 或 linux 請參考官方網站</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+chmod +x cloud_sql_proxy
+</code></pre></div></li>
+<li>
+<p>使用 gcloud 來進行認證</p>
+</li>
+<li>
+<p>當 gcloud 認證成功後，Cloud SQL Proxy 就會將你本機電腦(localhost)的 port 綁定連線到 SQL database</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cloud_sql_proxy -instances<span class="o">=</span>&lt;instance_name&gt;<span class="o">=</span>tcp:5432
+<span class="c1"># 當看到 Ready for new connections 的字樣出現就成功了</span>
+</code></pre></div></li>
+<li>
+<p>最後只要透過本機端的 port 就可以連接上遠端的 Database 了</p>
+</li>
+</ol>
+<h3 id="k8s-server-連線">K8S server 連線</h3>
+<p>建立 Service Account 並透過 Side Car(額外的 container) 的方式來建立 proxy 連線到 Cloud SQL</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">minReadySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">  </span><span class="k">strategy</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">rollingUpdate</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span><span class="k">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>RollingUpdate<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>regcred<span class="w">
+</span><span class="w">      </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>&lt;主要程式<span class="w"> </span>image<span class="sd">&gt;
+</span><span class="sd">        ...</span><span class="w">
+</span><span class="w">        </span><span class="c"># 透過另外的 container 來建立 proxy 連線 ⬇︎</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>cloud-sql-proxy<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>gcr.io/cloudsql-docker/gce-proxy<span class="p">:</span><span class="m">1.17</span><span class="w">
+</span><span class="w">        </span><span class="k">command</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;/cloud_sql_proxy&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;-instances=&lt;instance name&gt;=tcp:5432&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;-credential_file=/secrets/service_account.json&#34;</span><span class="w">
+</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>sa<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/secrets/<span class="w">
+</span><span class="w">          </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>sa<span class="w">
+</span><span class="w">        </span><span class="k">secret</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>internal-server-sa-secret<span class="w">
+</span></code></pre></div>
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

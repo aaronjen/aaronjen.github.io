@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2019-12-05-hugo-gatsby/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>Hugo &amp; Gatsby : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="Hugo &amp; Gatsby">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2019-12-05-hugo-gatsby/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。 回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。">
+<meta name="description" content="在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。 回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。">
+<meta property="og:updated_time" content="2019-12-05T15:41:55Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2019-12-05T15:41:55Z">
+<meta property="article:modified_time" content="2019-12-05T15:41:55Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hugo \u0026 Gatsby",
+  "alternativeHeadline": "分享一下當初如何選擇 static site generator 做部落格框架，又是如何從 Gatsby 跳槽到 Hugo。",
+  "url": "https://aaronjen.github.io/2019-12-05-hugo-gatsby/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2019-12-05-hugo-gatsby/"
+  },
+  "description": "在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，\u0008但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。 回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2019-12-05T15:41:55Z",
+  "dateModified": "2019-12-05T15:41:55Z",
+  "articleBody": "\u003cp\u003e在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，\u0008但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。\u003c/p\u003e\n\u003cp\u003e回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。\u003c/p\u003e\n\u003ch2 id=\"gatsby-使用心得\"\u003eGatsby 使用心得\u003c/h2\u003e\n\u003cp\u003e最一開始我是用 Gatsby 來建立部落格的，因為我本身工作就是用 React 寫前端，所以很自然的就找到了 Gatsby，因為 React 使用者眾多的關係，讓 Gatsby 一直都有很高的熱度，Github 上的星星數量還超過了\u003cstrong\u003e40K\u003c/strong\u003e，可以參考與選擇的主題在\u003ca href=\"https://www.gatsbyjs.org/showcase/\"\u003e官網\u003c/a\u003e上就超過 700 個。\u003c/p\u003e\n\u003cp\u003e所以我就花了一段時間挑選了自己喜歡的主題，開始客制自己的網站，也寫了幾篇文章(2019/12以前的文章都是在 Gatsby 時期寫的)，放到 \u003ca href=\"https://pages.github.com/\"\u003eGithub pages\u003c/a\u003e 上。在上述的過程中，我就體驗到了 Gatsby building 時間的可怕，開發階段 run 起來大概需要 30 秒左右的時間，建立 production build 就需要超過 2 分鐘。\u003c/p\u003e\n\u003cp\u003e會考慮 Gatsby 或 Hugo 的人，應該跟我都一樣是個工程師，有想要自己客制網站的想法，不然大可以跑去 Medium 甚至 facebook 發發貼文就好。所以，你會在一邊寫 Blog 的時候，一邊看著你的網站，一邊想著如何改進網站 style。\u003c/p\u003e\n\u003cp\u003e我就會一邊寫著 markdown，改一下 Blog 的 css，甚至改寫一下頁面操作。雖然有 hot reload 的幫忙，讓大部分修改都可以很快的反應到 browser，但就是有些調整 hot reload 會沒有反應，這時候就要重新 build 整個網站。這時候就會不斷的體驗到上述的 building 時間。\u003c/p\u003e\n\u003cp\u003e儘管等待 building time 讓人覺得有點困擾，但開發時的 30 秒也就喝個一杯水可以打發，還算可以忍受，而 deploy，也就是久久才一次，所以就照樣先在 local 端開發了一陣子，寫了幾篇文章，沒想過要換個 static site generator。\u003c/p\u003e\n\u003cp\u003e直到最近有些 Project 因為 Github Pages 路徑衝突，需要不斷上傳新的 production build 做測試，才讓我下定覺得，應該要換 Hug\u0008o 試試看。\u003c/p\u003e\n\u003ch2 id=\"hugo-使用心得\"\u003eHugo 使用心得\u003c/h2\u003e\n\u003cp\u003e剛開始用 Hugo 時，真的被他的 building time 嚇到，不管是跑開發用的 server，還是 production build 都在一秒以內，時間短到讓我以為我下錯指令，還多檢查了幾次 Terminal。\u003c/p\u003e\n\u003cp\u003e這樣的速度完全體現了 Golang 的運算能力。\u003c/p\u003e\n\u003cp\u003e讓我換到 Hugo 的原因不只有 build 的時間短而已，從使用 Gastby 以來，我不斷思考著，工作上就一直在使用 React 了，自己的空閒時間還要寫 React 稍微感到有些膩，可以換個工具學個新技術感覺新鮮許多。此外，我也認為部落格，只有少少的幾個版面配置而已，使用 React 會有種大材小用的感覺。\u003c/p\u003e\n\u003ch2 id=\"結語\"\u003e結語\u003c/h2\u003e\n\u003cp\u003e說了這麼多，在寫這篇文章的時候，我也才剛從 Gatsby 跳去 Hugo，所以可能還在蜜月期，還沒發現 Hugo 的缺點，所以也不知道會不會哪天又很不爽 Hugo 就跑到其他 static site generator(應該是不會啦，一直跳來跳去也很花時間)。\u003c/p\u003e\n\u003cp\u003e最後想要說的是，每一個工具都有他的優缺點，我在意的優缺點跟其他人在意的優缺點也不一樣，所以我目前選擇 Hugo，不代表 Hugo 就是最好的選擇，寫這篇文章的目的，第一個是紀錄當初選擇的過程，第二大概就是希望可以提供我的觀點給跟我一樣有選擇障礙的其他人。畢竟，當初我自己也查了很多比較文章，還自己都嘗試過才選出來的，希望其他人可以少走一點彎路。\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">Hugo &amp; Gatsby</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">分享一下當初如何選擇 static site generator 做部落格框架，又是如何從 Gatsby 跳槽到 Hugo。</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2019-12-05T15:41:55Z">Dec 5, 2019</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<p>在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。</p>
+<p>回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。</p>
+<h2 id="gatsby-使用心得">Gatsby 使用心得</h2>
+<p>最一開始我是用 Gatsby 來建立部落格的，因為我本身工作就是用 React 寫前端，所以很自然的就找到了 Gatsby，因為 React 使用者眾多的關係，讓 Gatsby 一直都有很高的熱度，Github 上的星星數量還超過了<strong>40K</strong>，可以參考與選擇的主題在<a href="https://www.gatsbyjs.org/showcase/">官網</a>上就超過 700 個。</p>
+<p>所以我就花了一段時間挑選了自己喜歡的主題，開始客制自己的網站，也寫了幾篇文章(2019/12以前的文章都是在 Gatsby 時期寫的)，放到 <a href="https://pages.github.com/">Github pages</a> 上。在上述的過程中，我就體驗到了 Gatsby building 時間的可怕，開發階段 run 起來大概需要 30 秒左右的時間，建立 production build 就需要超過 2 分鐘。</p>
+<p>會考慮 Gatsby 或 Hugo 的人，應該跟我都一樣是個工程師，有想要自己客制網站的想法，不然大可以跑去 Medium 甚至 facebook 發發貼文就好。所以，你會在一邊寫 Blog 的時候，一邊看著你的網站，一邊想著如何改進網站 style。</p>
+<p>我就會一邊寫著 markdown，改一下 Blog 的 css，甚至改寫一下頁面操作。雖然有 hot reload 的幫忙，讓大部分修改都可以很快的反應到 browser，但就是有些調整 hot reload 會沒有反應，這時候就要重新 build 整個網站。這時候就會不斷的體驗到上述的 building 時間。</p>
+<p>儘管等待 building time 讓人覺得有點困擾，但開發時的 30 秒也就喝個一杯水可以打發，還算可以忍受，而 deploy，也就是久久才一次，所以就照樣先在 local 端開發了一陣子，寫了幾篇文章，沒想過要換個 static site generator。</p>
+<p>直到最近有些 Project 因為 Github Pages 路徑衝突，需要不斷上傳新的 production build 做測試，才讓我下定覺得，應該要換 Hugo 試試看。</p>
+<h2 id="hugo-使用心得">Hugo 使用心得</h2>
+<p>剛開始用 Hugo 時，真的被他的 building time 嚇到，不管是跑開發用的 server，還是 production build 都在一秒以內，時間短到讓我以為我下錯指令，還多檢查了幾次 Terminal。</p>
+<p>這樣的速度完全體現了 Golang 的運算能力。</p>
+<p>讓我換到 Hugo 的原因不只有 build 的時間短而已，從使用 Gastby 以來，我不斷思考著，工作上就一直在使用 React 了，自己的空閒時間還要寫 React 稍微感到有些膩，可以換個工具學個新技術感覺新鮮許多。此外，我也認為部落格，只有少少的幾個版面配置而已，使用 React 會有種大材小用的感覺。</p>
+<h2 id="結語">結語</h2>
+<p>說了這麼多，在寫這篇文章的時候，我也才剛從 Gatsby 跳去 Hugo，所以可能還在蜜月期，還沒發現 Hugo 的缺點，所以也不知道會不會哪天又很不爽 Hugo 就跑到其他 static site generator(應該是不會啦，一直跳來跳去也很花時間)。</p>
+<p>最後想要說的是，每一個工具都有他的優缺點，我在意的優缺點跟其他人在意的優缺點也不一樣，所以我目前選擇 Hugo，不代表 Hugo 就是最好的選擇，寫這篇文章的目的，第一個是紀錄當初選擇的過程，第二大概就是希望可以提供我的觀點給跟我一樣有選擇障礙的其他人。畢竟，當初我自己也查了很多比較文章，還自己都嘗試過才選出來的，希望其他人可以少走一點彎路。</p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2020-09-05-microservice-note/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>Microservice - 微服務架構研究筆記 : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="Microservice - 微服務架構研究筆記">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2020-09-05-microservice-note/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。  ...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler  什麼是微服務？">
+<meta name="description" content="這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。  ...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler  什麼是微服務？">
+<meta property="og:updated_time" content="2020-09-05T00:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2020-09-05T00:00:00Z">
+<meta property="article:modified_time" content="2020-09-05T00:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Microservice - 微服務架構研究筆記",
+  "alternativeHeadline": "記錄研究微服務架構時的一些心得與筆記",
+  "url": "https://aaronjen.github.io/2020-09-05-microservice-note/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2020-09-05-microservice-note/"
+  },
+  "description": "這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。  ...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler  什麼是微服務？",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2020-09-05T00:00:00Z",
+  "dateModified": "2020-09-05T00:00:00Z",
+  "articleBody": "\u003cp\u003e這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e什麼是微服務？\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e微服務有小型、獨立、鬆散耦合的特性\u003c/li\u003e\n\u003cli\u003e小型團隊就可以維護且開發\u003c/li\u003e\n\u003cli\u003e可以獨立部署、不用重新建置整個應用程式\u003c/li\u003e\n\u003cli\u003e必須自行處理資料存取，也就是各個服務有自己的 database，而這個 database 只有該服務可以使用\u003c/li\u003e\n\u003cli\u003e微服務之間透過 API、gRPC 或 Event 溝通\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003cp\u003e微服務的概念不難，其實就是把一整個複雜的 application 拆解成細小且各自獨立的服務。這句話說起來簡單但實際上卻是有很多事情要處理。\u003c/p\u003e\n\u003ch3 id=\"實作上會遇到的問題\"\u003e實作上會遇到的問題：\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e文件該如何管理？沒有好的文件管理，微服務會難以管理也會使得開發寸步難行。\u003c/li\u003e\n\u003cli\u003e各個服務之間如何溝通？\u003c/li\u003e\n\u003cli\u003eData Schema 如何定義？\u003c/li\u003e\n\u003cli\u003e如何更新維護？\u003c/li\u003e\n\u003cli\u003e自動化\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"自動化\"\u003e自動化\u003c/h3\u003e\n\u003cp\u003e雖然自動化寫在最後一項，但自動化是我覺得整個架構當中最重要的東西。一間大公司的 microservice 可以多達 100 個以上，這個數量的服務是沒有任何人可以透過手動去維護與部署的，所以自動化在整個微服務架構中是必須且最重要的。\u003c/p\u003e\n\u003ch3 id=\"文件管理\"\u003e文件管理\u003c/h3\u003e\n\u003cp\u003e微服務之間最常見的溝通方法是透過 REST api 做溝通，而透過 REST api 溝通的難點在於統整整個架構的 API 文件，所以 API 的文件必須有良好的管理。\u003c/p\u003e\n\u003cp\u003e至於 API 管理的內容，有一些地方可以注意：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\n\u003cp\u003e文件格式統一。例如：JSON、YAML 等等\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e命名規則。例如：API 的 path 是不是都該小寫\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e路徑命名。例如：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eGET  /user/:id -\u0026gt; 取得 user 資料\nPOST /users    -\u0026gt; 建立新的 user 資料\n   \nGET  /company/:id -\u0026gt; 取得 company 資料\nPOST /companies   -\u0026gt; 建立新的 company 資料\n\u003c/code\u003e\u003c/pre\u003e\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e自動化的 linter，上述內容如果要透過人工確認的話太花時間與成本，一些簡單的 script 就可以節省很多人力消耗。\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"溝通\"\u003e溝通\u003c/h3\u003e\n\u003cp\u003e溝通是微服務架構的一大課題，良好的溝通才能確保整個應用程式正常運作，這邊就簡介三種溝通方式。\u003c/p\u003e\n\u003cp\u003e第一種就是上面提到的 REST API，REST API 實在太常見了，這邊就不在多做敘述。\u003c/p\u003e\n\u003cp\u003e除了 REST API 之外，透過 gRPC 也是很好的選擇，gRPC 有個優點是溝通的雙方必須訂定好 schema(proto)，兩者之間的文件需要一致才能建立通道做溝通，如此可以避免，其中一方已經更新，但另一方卻沒有做相對應的改動。\n相關架構可以參考: \u003ca href=\"https://github.com/GoogleCloudPlatform/microservices-demo\"\u003eGoogle microservice demo\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/LgXheii.png\" alt=\"architecture-diagram\"\u003e\u003c/p\u003e\n\u003cp\u003e除了上面 REST、gRPC 以外，建立 Event Bus 是比較新的作法，Event Bus 有個與 REST API 截然不同的觀念，就是 asynchronous request 與 synchronous request 上的差別。\nREST API 被稱做 synchronous request 是因為 REST API 在發出 request 之後，需要立刻得到回應，沒有得到回應(time out)，就被認定是失敗，程式常常需要發出 request 之後，等到回應才能開始下一步工作。\n而 Event Bus 被稱為 asynchronous request 的原因是，Event Bus 的重點是建立 Event，只要確保 Event 建立完，任務就達成了，不用立刻知道該 Event 有沒有接收到，或需要馬上得到回應。需要做的是 Subscribe 回應的 Event，等到對方處理好了再來接收對方給的 Event 做相對應的處理。而 Subscriber 也可能是其他的微服務。目前 \u003ca href=\"https://cloud.google.com/pubsub?hl=zh-tw\"\u003eGoogle(pub/sub)\u003c/a\u003e 與 \u003ca href=\"https://aws.amazon.com/tw/kinesis/\"\u003eAWS(kinesis)\u003c/a\u003e 都有提供相關的雲端服務可以直接做使用。\nEvent Bus 架構可以參考 infoQ 的影片:  \u003ca href=\"https://www.youtube.com/watch?v=j6ow-UemzBc\"\u003eDesign Microservice Architectures the Right Way\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/MCanowR.png\" alt=\"flow-platform\"\u003e\u003c/p\u003e\n\u003ch3 id=\"data-schema-定義\"\u003eData Schema 定義\u003c/h3\u003e\n\u003cp\u003eData Schema 的定義其實跟 API 文件類似，需要有人去定義格式與命名規則，也同樣的可以透過 linter 去確定內容是否符合團隊標準。\u003c/p\u003e\n\u003ch3 id=\"更新維護\"\u003e更新維護\u003c/h3\u003e\n\u003cp\u003e更新維護是最需要自動化的地方。\u003c/p\u003e\n\u003cp\u003e一個程式的穩定可以透過 Testing 來輔助，自動化的 Testing 機制絕對是必要的。除了 unit test 的程式需要自動化執行，更重要的是自動化建立測試的環境，unit test 是需要環境一致，測試起來才會有一致的結果。\u003c/p\u003e\n\u003ch3 id=\"reference\"\u003eReference\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices\"\u003eMicrosoft microservice 說明文件\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/GoogleCloudPlatform/microservices-demo\"\u003eGoogle microservice demo\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://www.youtube.com/watch?v=j6ow-UemzBc\"\u003eMichael Bryzek at InfoQ\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">Microservice - 微服務架構研究筆記</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">記錄研究微服務架構時的一些心得與筆記</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2020-09-05T00:00:00Z">Sep 5, 2020</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<p>這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。</p>
+<blockquote>
+<p>...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler</p>
+</blockquote>
+<p>什麼是微服務？</p>
+<ul>
+<li>微服務有小型、獨立、鬆散耦合的特性</li>
+<li>小型團隊就可以維護且開發</li>
+<li>可以獨立部署、不用重新建置整個應用程式</li>
+<li>必須自行處理資料存取，也就是各個服務有自己的 database，而這個 database 只有該服務可以使用</li>
+<li>微服務之間透過 API、gRPC 或 Event 溝通</li>
+</ul>
+<hr>
+<p>微服務的概念不難，其實就是把一整個複雜的 application 拆解成細小且各自獨立的服務。這句話說起來簡單但實際上卻是有很多事情要處理。</p>
+<h3 id="實作上會遇到的問題">實作上會遇到的問題：</h3>
+<ol>
+<li>文件該如何管理？沒有好的文件管理，微服務會難以管理也會使得開發寸步難行。</li>
+<li>各個服務之間如何溝通？</li>
+<li>Data Schema 如何定義？</li>
+<li>如何更新維護？</li>
+<li>自動化</li>
+</ol>
+<h3 id="自動化">自動化</h3>
+<p>雖然自動化寫在最後一項，但自動化是我覺得整個架構當中最重要的東西。一間大公司的 microservice 可以多達 100 個以上，這個數量的服務是沒有任何人可以透過手動去維護與部署的，所以自動化在整個微服務架構中是必須且最重要的。</p>
+<h3 id="文件管理">文件管理</h3>
+<p>微服務之間最常見的溝通方法是透過 REST api 做溝通，而透過 REST api 溝通的難點在於統整整個架構的 API 文件，所以 API 的文件必須有良好的管理。</p>
+<p>至於 API 管理的內容，有一些地方可以注意：</p>
+<ol>
+<li>
+<p>文件格式統一。例如：JSON、YAML 等等</p>
+</li>
+<li>
+<p>命名規則。例如：API 的 path 是不是都該小寫</p>
+</li>
+<li>
+<p>路徑命名。例如：</p>
+<pre><code>GET  /user/:id -&gt; 取得 user 資料
+POST /users    -&gt; 建立新的 user 資料
+   
+GET  /company/:id -&gt; 取得 company 資料
+POST /companies   -&gt; 建立新的 company 資料
+</code></pre></li>
+<li>
+<p>自動化的 linter，上述內容如果要透過人工確認的話太花時間與成本，一些簡單的 script 就可以節省很多人力消耗。</p>
+</li>
+</ol>
+<h3 id="溝通">溝通</h3>
+<p>溝通是微服務架構的一大課題，良好的溝通才能確保整個應用程式正常運作，這邊就簡介三種溝通方式。</p>
+<p>第一種就是上面提到的 REST API，REST API 實在太常見了，這邊就不在多做敘述。</p>
+<p>除了 REST API 之外，透過 gRPC 也是很好的選擇，gRPC 有個優點是溝通的雙方必須訂定好 schema(proto)，兩者之間的文件需要一致才能建立通道做溝通，如此可以避免，其中一方已經更新，但另一方卻沒有做相對應的改動。
+相關架構可以參考: <a href="https://github.com/GoogleCloudPlatform/microservices-demo">Google microservice demo</a></p>
+<p><img src="https://i.imgur.com/LgXheii.png" alt="architecture-diagram"></p>
+<p>除了上面 REST、gRPC 以外，建立 Event Bus 是比較新的作法，Event Bus 有個與 REST API 截然不同的觀念，就是 asynchronous request 與 synchronous request 上的差別。
+REST API 被稱做 synchronous request 是因為 REST API 在發出 request 之後，需要立刻得到回應，沒有得到回應(time out)，就被認定是失敗，程式常常需要發出 request 之後，等到回應才能開始下一步工作。
+而 Event Bus 被稱為 asynchronous request 的原因是，Event Bus 的重點是建立 Event，只要確保 Event 建立完，任務就達成了，不用立刻知道該 Event 有沒有接收到，或需要馬上得到回應。需要做的是 Subscribe 回應的 Event，等到對方處理好了再來接收對方給的 Event 做相對應的處理。而 Subscriber 也可能是其他的微服務。目前 <a href="https://cloud.google.com/pubsub?hl=zh-tw">Google(pub/sub)</a> 與 <a href="https://aws.amazon.com/tw/kinesis/">AWS(kinesis)</a> 都有提供相關的雲端服務可以直接做使用。
+Event Bus 架構可以參考 infoQ 的影片:  <a href="https://www.youtube.com/watch?v=j6ow-UemzBc">Design Microservice Architectures the Right Way</a></p>
+<p><img src="https://i.imgur.com/MCanowR.png" alt="flow-platform"></p>
+<h3 id="data-schema-定義">Data Schema 定義</h3>
+<p>Data Schema 的定義其實跟 API 文件類似，需要有人去定義格式與命名規則，也同樣的可以透過 linter 去確定內容是否符合團隊標準。</p>
+<h3 id="更新維護">更新維護</h3>
+<p>更新維護是最需要自動化的地方。</p>
+<p>一個程式的穩定可以透過 Testing 來輔助，自動化的 Testing 機制絕對是必要的。除了 unit test 的程式需要自動化執行，更重要的是自動化建立測試的環境，unit test 是需要環境一致，測試起來才會有一致的結果。</p>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microsoft microservice 說明文件</a></li>
+<li><a href="https://github.com/GoogleCloudPlatform/microservices-demo">Google microservice demo</a></li>
+<li><a href="https://www.youtube.com/watch?v=j6ow-UemzBc">Michael Bryzek at InfoQ</a></li>
+</ul>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

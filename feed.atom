@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-tw">
+  <title>Aaron Jen&#39;s Blog</title>
+  <subtitle>記錄程式上的發現</subtitle>
+  <id>https://aaronjen.github.io/</id>
+  <author>
+    <name>Aaron Jen&#39;s Blog</name>
+    <uri>https://aaronjen.github.io/</uri>
+  </author>
+  <icon>https://aaronjen.github.io/image/brand/icon-1-1.png</icon>
+  <logo>https://aaronjen.github.io/image/brand/icon-2-1.png</logo>
+  <updated>2021-01-25T04:04:56Z</updated>
+  <link rel="self" type="application/atom+xml" href="https://aaronjen.github.io/feed.atom" hreflang="zh-tw"/>
+  <link rel="alternate" type="text/html" href="https://aaronjen.github.io/" hreflang="zh-tw"/>
+  <entry>
+    <title>Leetcode 起手式 Leetcode Getting Started</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2021-01-13-leetcode-getting-started/</id>
+    <updated>2021-01-12T14:00:00Z</updated>
+    <published>2021-01-12T14:00:00Z</published>
+    <content type="html"><![CDATA[<h2 id="leetcode-介紹">Leetcode 介紹</h2>
+<p>Leetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。</p>
+<p>Leetcode 截止 2021/01 有1700+ 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。</p>
+<p>至於可以怎麼挑呢？</p>
+<p><a href="https://leetcode.com/list/xoqag3yj/">https://leetcode.com/list/xoqag3yj/</a></p>
+<p>有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。</p>
+<p>接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。</p>
+<h2 id="好用的工具">好用的工具</h2>
+<p>最近幾年 microsoft 出的文字編輯器 <a href="https://code.visualstudio.com/">visual studio code(VS code)</a> 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode">https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode</a></p>
+<p>這個工具可以讓你在 VS code 上面寫 Leetcode 的題目，讓你享受 IDE 的 autocomplete 又可以幫你上傳到 Leetcode server 判斷程式是否正確。除此之外，source code 因為存在本地端，所以要怎麼整理、要做 Git 管控等等，都十分的方便。</p>
+<p>安裝的方式，就參考 VS code 的官網，基本上跟一般的 extension 一樣透過 extension manager 就可以安裝好。</p>
+<p>比較特別的是，因為這個 extension 要幫你上傳 source code 到 Leetcode 的 judge system，來判斷程式的正確，所以必須要登入自己的 Leetcode 帳號。有些人可能會有資安的疑慮，但這個 extension 是 open source 的 extension，使用人數也很多，如果真的有問題的話，應該會有不少人反應問題。</p>
+<h2 id="用-go-刷題時的配置">用 Go 刷題時的配置</h2>
+<p>因為自己剛開始學 Go，所以就用 Go 來刷題，順便熟悉 Go 的語法。不得不說，刷題在參考別人寫的 code 時，常常可以發覺一些好用、易懂的寫法，可以藉此來加強語法的熟悉度。</p>
+<p>在用 Go 刷題時，最重要的是資料夾結構，因為 Go 是用資料夾來分 package 的，所以在同一層資料夾的檔案，必定屬於相同 package。這時就會出現不同的題目用到相同的 function 名稱導致衝突。雖然不影響上傳結果，但會影響 IDE 的 autocomplete 運作，寫題目寫起來就會比較不順。所以還是每道題目都分開不同的資料夾比較方便管理，也比較美觀。</p>
+<p>但要自己將每一道題目都分資料夾，真的也是很麻煩，還好 Leetcode 的 extension 可以做一些設定來自動完成這件事情。</p>
+<p><a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File">https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;leetcode.filePath&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;golang&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;folder&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;filename&#34;</span><span class="p">:</span> <span class="s2">&#34;${id}.${kebab-case-name}/main.${ext}&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></div><p>只要將 filename 的名稱組好，在 fetch 新題目時，VS code 就會自動將檔案分資料夾存好，這樣就不會互相影響各自的 function 名稱了。</p>
+<p><img src="https://i.imgur.com/jhyeWu8.png" alt="folder-structure"></p>
+<p>Reference:</p>
+<p>PTT 心得： <a href="https://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho">https://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho</a></p>
+<p>Vscode-leetcode： <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode">https://github.com/LeetCode-OpenSource/vscode-leetcode</a></p>]]></content>
+  </entry>
+  <entry>
+    <title>在 GCP/GKE 的 Ingress 設定 sticky session</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2020-09-11-gke-ingress-sticky-session/</id>
+    <updated>2020-09-11T09:00:00Z</updated>
+    <published>2020-09-11T09:00:00Z</published>
+    <content type="html"><![CDATA[<h2 id="ingress-sticky-session">Ingress Sticky Session</h2>
+<h3 id="先備知識">先備知識</h3>
+<ul>
+<li>kubernetes 架構知識</li>
+<li>kubectl 操作</li>
+<li>稍微了解 kubernetes Deployment, Service, Ingress 如何用 yaml 做設定</li>
+<li>有連結帳單與信用卡的 GCP 帳號</li>
+</ul>
+<h3 id="note">Note</h3>
+<p>這篇討論的是 GCE/GKE 的 Ingress，因為目前只有使用過 Google 的服務，所以不知道其他平台是否有一樣的行為。</p>
+<h3 id="kubernetes-最基本元件">kubernetes 最基本元件</h3>
+<ul>
+<li>Pod</li>
+<li>Service</li>
+<li>Deployment</li>
+<li>Ingress</li>
+</ul>
+<h3 id="ingress-架構">Ingress 架構</h3>
+<p><img src="https://i.imgur.com/Cg2gJEL.jpg" alt="ingress"></p>
+<p>簡單的來說 Ingress 就是個 router，Ingress 的作用在於建立一個 routing table 將流量導引到設定好的 Service 或 Pod。</p>
+<p>例如假設我們擁有 example.com 的 host 我們就可以：</p>
+<pre><code>service-a.example.com -&gt; service-a -&gt; service-a pods
+service-b.example.com -&gt; service-b -&gt; service-b pods
+</code></pre><p>建立這樣的 routing，我們只需要一個 Ingress、一個對外的 ip 就可以達成。當我們有一堆 Services 時也不用開一堆 ip。</p>
+<p>除了 domain name 的 routing，path 也可以做 routing：</p>
+<pre><code>service.example.com/api/a -&gt; A service -&gt; A pods
+service.example.com/api/b -&gt; B service -&gt; B pods
+</code></pre><p>GKE Ingress 還有許多 features， 詳細的內容可以參考 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=zh-tw">Google 官方文件</a></p>
+<h3 id="sticky-session-簡介">sticky session 簡介</h3>
+<p>sticky session 就是當你連上一台 server 時，後續的 request 都會連到同一台 server。server 方面是透過 session affinity 這個名詞做設定。</p>
+<p>sticky session 的用途是讓 server 與 frontend 有辦法建立穩定且持續的連線，如果沒有設定 sticky session，frontend 與 server 進行 websocket 連線時，會因為 server 的 load balancer 不斷切換 server，導致 server 不認識 frontend 的 socket id，進而不斷產生重新連線使溝通無法運作。</p>
+<h3 id="在-gcegke-ingress-使用-sticky-session-的條件">在 GCE/GKE Ingress 使用 sticky session 的條件</h3>
+<ol>
+<li>Cluster 必須是 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips#benefits">VPC-native cluster</a></li>
+<li>Ingress 與 Service 之間必須建立 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/standalone-neg">NEG(network endpoint group)</a></li>
+</ol>
+<h3 id="實作範例">實作範例</h3>
+<p>要測試 ingress sticky session 我們需要先準備一個簡單的 server 來做測試。這邊我就用 GKE 官方提供的小程式來寫測試，這隻小程式會將你連接到的 Pod 的名稱會傳給你，讓你辨別是否有連接到同一台 Pod。</p>
+<p>以下就是範例 Code:</p>
+<p>Deployment:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Label for the Deployment</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Name of Deployment</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span><span class="c"># Pod template</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w"> </span><span class="c"># Labels Pods from this Deployment</span><span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w"> </span><span class="c"># Pod specification; each Pod created by this Deployment has this specification</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/serve_hostname<span class="p">:</span>v1<span class="m">.4</span><span class="w"> </span><span class="c"># Application to run in Deployment&#39;s Pods</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>hostname<span class="w"> </span><span class="c"># Container name</span><span class="w">
+</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9376</span><span class="w">
+</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span></code></pre></div><p>Backend Config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>cloud.google.com/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>BackendConfig<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-backendconfig<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">sessionAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">affinityType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;GENERATED_COOKIE&#34;</span><span class="w"> </span><span class="c"># Options: NONE, CLIENT_IP, GENERATED_COOKIE</span><span class="w">
+</span><span class="w">    </span><span class="k">affinityCookieTtlSec</span><span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span></code></pre></div><p>Service:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-svc<span class="w"> </span><span class="c"># Name of Service</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">beta.cloud.google.com/backend-config</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#34;default&#34;: &#34;my-backendconfig&#34;}&#39;</span><span class="w">
+</span><span class="w">    </span><span class="k">cloud.google.com/neg</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#34;ingress&#34;: true}&#39;</span><span class="w"> </span><span class="c"># Creates a NEG after an Ingress is created</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w"> </span><span class="c"># Service&#39;s specification</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">run: neg-demo-app # Selects Pods labelled run</span><span class="p">:</span><span class="w"> </span>neg-demo-app<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c"># Service&#39;s port</span><span class="w">
+</span><span class="w">    </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">9376</span><span class="w">
+</span></code></pre></div><p>Ingress:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>networking.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neg-demo-ing<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;gce&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>neg-demo-svc<span class="w">
+</span><span class="w">    </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></code></pre></div><h3 id="測試">測試</h3>
+<p>取得 ingress IP</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">kubectl get ingress my-ingress --output yaml
+</code></pre></div><p>Output</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">status</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">loadBalancer</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">ip</span><span class="p">:</span><span class="w"> </span><span class="m">203.0.113.1</span><span class="w">
+</span></code></pre></div><p>可以透過 curl 或是開瀏覽器來看是不是有回應，如果沒有回應可能是 k8s 還沒有生效，可以等一段時間上個廁所，等了 10 分鐘以上還沒有生效的話，可能就要檢查一下是否有地方設定錯了。</p>
+<p>基本上有看到 GCLB 的 cookie 就代表 sticky session 有作用。也可以重新刷新頁面幾次，看看 Pod 是不是都連到一樣的。</p>
+<p><img src="https://i.imgur.com/nZxNx02.png" alt="Chrome Developer Tool"></p>
+<p>Reference:</p>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features">Google Ingress Reference</a></p>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing">Google Ingress NEG</a></p>]]></content>
+  </entry>
+  <entry>
+    <title>Microservice - 微服務架構研究筆記</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2020-09-05-microservice-note/</id>
+    <updated>2020-09-05T00:00:00Z</updated>
+    <published>2020-09-05T00:00:00Z</published>
+    <content type="html"><![CDATA[<p>這篇文章單純記錄網路上找到的內容，沒有實際實作的經驗，所以參考時請自行斟酎。</p>
+<blockquote>
+<p>...the microservice architectual style is an approach to developing a single application as a suite of small services, each running in its own process and comunicating with lighweight mechanisms, often an HTTP resource API. - Martin Fowler</p>
+</blockquote>
+<p>什麼是微服務？</p>
+<ul>
+<li>微服務有小型、獨立、鬆散耦合的特性</li>
+<li>小型團隊就可以維護且開發</li>
+<li>可以獨立部署、不用重新建置整個應用程式</li>
+<li>必須自行處理資料存取，也就是各個服務有自己的 database，而這個 database 只有該服務可以使用</li>
+<li>微服務之間透過 API、gRPC 或 Event 溝通</li>
+</ul>
+<hr>
+<p>微服務的概念不難，其實就是把一整個複雜的 application 拆解成細小且各自獨立的服務。這句話說起來簡單但實際上卻是有很多事情要處理。</p>
+<h3 id="實作上會遇到的問題">實作上會遇到的問題：</h3>
+<ol>
+<li>文件該如何管理？沒有好的文件管理，微服務會難以管理也會使得開發寸步難行。</li>
+<li>各個服務之間如何溝通？</li>
+<li>Data Schema 如何定義？</li>
+<li>如何更新維護？</li>
+<li>自動化</li>
+</ol>
+<h3 id="自動化">自動化</h3>
+<p>雖然自動化寫在最後一項，但自動化是我覺得整個架構當中最重要的東西。一間大公司的 microservice 可以多達 100 個以上，這個數量的服務是沒有任何人可以透過手動去維護與部署的，所以自動化在整個微服務架構中是必須且最重要的。</p>
+<h3 id="文件管理">文件管理</h3>
+<p>微服務之間最常見的溝通方法是透過 REST api 做溝通，而透過 REST api 溝通的難點在於統整整個架構的 API 文件，所以 API 的文件必須有良好的管理。</p>
+<p>至於 API 管理的內容，有一些地方可以注意：</p>
+<ol>
+<li>
+<p>文件格式統一。例如：JSON、YAML 等等</p>
+</li>
+<li>
+<p>命名規則。例如：API 的 path 是不是都該小寫</p>
+</li>
+<li>
+<p>路徑命名。例如：</p>
+<pre><code>GET  /user/:id -&gt; 取得 user 資料
+POST /users    -&gt; 建立新的 user 資料
+   
+GET  /company/:id -&gt; 取得 company 資料
+POST /companies   -&gt; 建立新的 company 資料
+</code></pre></li>
+<li>
+<p>自動化的 linter，上述內容如果要透過人工確認的話太花時間與成本，一些簡單的 script 就可以節省很多人力消耗。</p>
+</li>
+</ol>
+<h3 id="溝通">溝通</h3>
+<p>溝通是微服務架構的一大課題，良好的溝通才能確保整個應用程式正常運作，這邊就簡介三種溝通方式。</p>
+<p>第一種就是上面提到的 REST API，REST API 實在太常見了，這邊就不在多做敘述。</p>
+<p>除了 REST API 之外，透過 gRPC 也是很好的選擇，gRPC 有個優點是溝通的雙方必須訂定好 schema(proto)，兩者之間的文件需要一致才能建立通道做溝通，如此可以避免，其中一方已經更新，但另一方卻沒有做相對應的改動。
+相關架構可以參考: <a href="https://github.com/GoogleCloudPlatform/microservices-demo">Google microservice demo</a></p>
+<p><img src="https://i.imgur.com/LgXheii.png" alt="architecture-diagram"></p>
+<p>除了上面 REST、gRPC 以外，建立 Event Bus 是比較新的作法，Event Bus 有個與 REST API 截然不同的觀念，就是 asynchronous request 與 synchronous request 上的差別。
+REST API 被稱做 synchronous request 是因為 REST API 在發出 request 之後，需要立刻得到回應，沒有得到回應(time out)，就被認定是失敗，程式常常需要發出 request 之後，等到回應才能開始下一步工作。
+而 Event Bus 被稱為 asynchronous request 的原因是，Event Bus 的重點是建立 Event，只要確保 Event 建立完，任務就達成了，不用立刻知道該 Event 有沒有接收到，或需要馬上得到回應。需要做的是 Subscribe 回應的 Event，等到對方處理好了再來接收對方給的 Event 做相對應的處理。而 Subscriber 也可能是其他的微服務。目前 <a href="https://cloud.google.com/pubsub?hl=zh-tw">Google(pub/sub)</a> 與 <a href="https://aws.amazon.com/tw/kinesis/">AWS(kinesis)</a> 都有提供相關的雲端服務可以直接做使用。
+Event Bus 架構可以參考 infoQ 的影片:  <a href="https://www.youtube.com/watch?v=j6ow-UemzBc">Design Microservice Architectures the Right Way</a></p>
+<p><img src="https://i.imgur.com/MCanowR.png" alt="flow-platform"></p>
+<h3 id="data-schema-定義">Data Schema 定義</h3>
+<p>Data Schema 的定義其實跟 API 文件類似，需要有人去定義格式與命名規則，也同樣的可以透過 linter 去確定內容是否符合團隊標準。</p>
+<h3 id="更新維護">更新維護</h3>
+<p>更新維護是最需要自動化的地方。</p>
+<p>一個程式的穩定可以透過 Testing 來輔助，自動化的 Testing 機制絕對是必要的。除了 unit test 的程式需要自動化執行，更重要的是自動化建立測試的環境，unit test 是需要環境一致，測試起來才會有一致的結果。</p>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microsoft microservice 說明文件</a></li>
+<li><a href="https://github.com/GoogleCloudPlatform/microservices-demo">Google microservice demo</a></li>
+<li><a href="https://www.youtube.com/watch?v=j6ow-UemzBc">Michael Bryzek at InfoQ</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <title>資安筆記</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2020-08-29-sec-note/</id>
+    <updated>2020-08-29T06:00:00Z</updated>
+    <published>2020-08-29T06:00:00Z</published>
+    <content type="html"><![CDATA[<h3 id="內容">內容：</h3>
+<ol>
+<li>IoT 等硬體設備的資安問題</li>
+<li>公司該如何有效管理資安問題</li>
+<li>資安的成本考量與取捨</li>
+<li>資安認證</li>
+<li>server 需要注意防範的地方</li>
+<li>Shift Left 降低成本</li>
+</ol>
+<h3 id="iot-等設備常見的問題">IoT 等設備常見的問題：</h3>
+<p>出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。</p>
+<h3 id="公司該如何有效管理資安問題">公司該如何有效管理資安問題：</h3>
+<p>公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。
+此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。</p>
+<h3 id="資安的成本考量與取捨">資安的成本考量與取捨：</h3>
+<p>資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。</p>
+<h3 id="資安認證">資安認證：</h3>
+<p>資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 <a href="https://aws.amazon.com/tw/compliance/hipaa-compliance/">HIPAA</a>。
+事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。</p>
+<h3 id="server-實際該防範且注意的地方">Server 實際該防範且注意的地方：</h3>
+<ol>
+<li>server 服務的漏洞，ex: <a href="https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/unsecured-aws-s3-bucket-found-leaking-data-of-over-30k-cannabis-dispensary-customers">AWS S3 information leak</a>、SSRF 取得 K8S 權限</li>
+<li>使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie</li>
+<li>Data Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection... 等攻擊</li>
+</ol>
+<h3 id="shift-left">Shift Left:</h3>
+<p>Shift Left，是減少資安成本的方式，觀念是如果能儘早建立資安相關的措施與架構，就可以減少系統大量修改的可能。</p>
+<ol>
+<li>定期檢討程式碼及早發現漏洞</li>
+<li>建立自動化流程持續檢測程式碼</li>
+<li>越早開始成本越低</li>
+</ol>]]></content>
+  </entry>
+  <entry>
+    <title>GCP - Cloud SQL 的連線方式（cloud sql proxy）</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2020-08-25-cloud_sql/</id>
+    <updated>2020-08-25T07:00:00Z</updated>
+    <published>2020-08-25T07:00:00Z</published>
+    <content type="html"><![CDATA[<p>Database 儲存了應用程式所有的資料，某種程度來說 Database 的安全性比應用程式本身還來的重要，雖然很多人都會把 Database 的連線方式寫在程式碼裡面，這種情況就另當別論。基於上述的理由，市面上的雲端服務提供者，例如：Google Cloud、AWS 等等的就會把 Database 連線設計的比較麻煩。</p>
+<p>這邊就來介紹一下，Google Cloud 如何進行 SQL Databas 連線。</p>
+<h3 id="連線方法">連線方法</h3>
+<ol>
+<li>開放 IP 連線 (建議只在 development 或 prototype 使用)</li>
+<li>利用 Google 提供的 Cloud SQL Proxy 來進行連線</li>
+</ol>
+<h3 id="開放所有-ip-連線-建議只在-development-或-prototype-使用">開放所有 IP 連線 (建議只在 development 或 prototype 使用)</h3>
+<p><a href="https://cloud.google.com/sql/docs/postgres/configure-ip?hl=zh-tw">官方文件</a></p>
+<p>這個應該可以不用特別做介紹，把自己公司或是 Server 持有的 IP 位置加入白名單就可以透過伺服器的 IP 位置進行連線。但有 Work From Home 需求的公司或喜歡到處跑在咖啡廳的 Free lancer 可能就有點不是那麼適合，除非原本就有建立 VPN。所以，這邊就介紹一下另一種，也是官方比較推薦的連線方式。</p>
+<h3 id="利用-google-提供的-cloud-sql-proxy-來進行連線">利用 Google 提供的 Cloud SQL Proxy 來進行連線</h3>
+<p><a href="https://cloud.google.com/sql/docs/postgres/connect-admin-proxy?hl=zh-tw">官方文件</a></p>
+<ol>
+<li>
+<p>下載 Cloud SQL Proxy (macOS)，windows 或 linux 請參考官方網站</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+chmod +x cloud_sql_proxy
+</code></pre></div></li>
+<li>
+<p>使用 gcloud 來進行認證</p>
+</li>
+<li>
+<p>當 gcloud 認證成功後，Cloud SQL Proxy 就會將你本機電腦(localhost)的 port 綁定連線到 SQL database</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cloud_sql_proxy -instances<span class="o">=</span>&lt;instance_name&gt;<span class="o">=</span>tcp:5432
+<span class="c1"># 當看到 Ready for new connections 的字樣出現就成功了</span>
+</code></pre></div></li>
+<li>
+<p>最後只要透過本機端的 port 就可以連接上遠端的 Database 了</p>
+</li>
+</ol>
+<h3 id="k8s-server-連線">K8S server 連線</h3>
+<p>建立 Service Account 並透過 Side Car(額外的 container) 的方式來建立 proxy 連線到 Cloud SQL</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">minReadySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">  </span><span class="k">strategy</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">rollingUpdate</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span><span class="k">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>RollingUpdate<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app_name<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>regcred<span class="w">
+</span><span class="w">      </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>&lt;主要程式<span class="w"> </span>image<span class="sd">&gt;
+</span><span class="sd">        ...</span><span class="w">
+</span><span class="w">        </span><span class="c"># 透過另外的 container 來建立 proxy 連線 ⬇︎</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>cloud-sql-proxy<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>gcr.io/cloudsql-docker/gce-proxy<span class="p">:</span><span class="m">1.17</span><span class="w">
+</span><span class="w">        </span><span class="k">command</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;/cloud_sql_proxy&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;-instances=&lt;instance name&gt;=tcp:5432&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;-credential_file=/secrets/service_account.json&#34;</span><span class="w">
+</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>sa<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/secrets/<span class="w">
+</span><span class="w">          </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>sa<span class="w">
+</span><span class="w">        </span><span class="k">secret</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>internal-server-sa-secret<span class="w">
+</span></code></pre></div>]]></content>
+  </entry>
+  <entry>
+    <title>Golang - Concurrency 與 Parallelism 的差別</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2020-08-22-golang-concurrency/</id>
+    <updated>2020-08-22T11:00:00Z</updated>
+    <published>2020-08-22T11:00:00Z</published>
+    <content type="html"><![CDATA[<h2 id="concurrency-parallelism-與-gomaxprocs">CONCURRENCY, PARALLELISM 與 GOMAXPROCS</h2>
+<p>Golang 一個最吸引人的特色是天生支援 concurrency 的能力，但 concurrency 很容易跟 parallelism 搞混。就讓我們來搞清楚在程式的世界中，concurrency 和 parallelism 究竟代表什麼意義吧！</p>
+<h3 id="字面翻譯">字面翻譯</h3>
+<p>Concurrency 並行</p>
+<p>Parallelism 並發</p>
+<p>從字面上看起來根本一模一樣，但其實兩者有著不同的概念。</p>
+<h3 id="範例說明">範例說明</h3>
+<p>我們以餐廳場景來當範例。</p>
+<ul>
+<li><strong>最沒有效率的處理方式是：</strong></li>
+</ul>
+<p>接到客人的訂單後，開始準備第一道料理，等到第一道料理完成後，開始準備第二道料理，最後上菜。</p>
+<ul>
+<li><strong>而有了 Concurreny 的情況是：</strong></li>
+</ul>
+<p>接到客人的訂單，一下做第一道料理，一下做第二道料理，直到兩道料理完成，最後上菜。
+咋聽之下，感覺速度沒有比較快，但這樣的好處是，你可能第一道料理是薯條，你把薯條丟下油鍋後其實手上就沒什麼事了，可以有空去做其他事，不用等到薯條炸完才開始煎肉。</p>
+<ul>
+<li><strong>而到了 Paralellism 的狀況就是：</strong></li>
+</ul>
+<p>接到客人的訂單後，有兩位廚師分別做好各自的料理，最後上菜。
+跟上面的 Concurrency 的差別是，有兩個人各自完成各自的工作。</p>
+<ul>
+<li><strong>但最重要的其實是，Concurrency 與 Parallelism 其實並不衝突，當有了 Concurrency 又有 Parallelism 才是效率最高的，此時情況就會像：</strong></li>
+</ul>
+<p>接到客人的訂單後，有兩位廚師，兩人分別開始做料理，但第一位廚師很快就做完手上的工作，開始幫第二位廚師切菜，之後再去把自己的料理收尾，最後上菜。
+應該不難想像，這可能才是實際的工作場景。</p>
+<p>而就我的理解，Golang 的情況比較像 Concurrency 加上 Parallelism，只是不知道為什麼很多人都只強調 Concurrency。</p>
+<h3 id="gomaxprocs">GOMAXPROCS</h3>
+<p>最後 GOMAXPROCS 是 Golang 會使用到的環境變數，也許就是這個環境變數讓 Golang 官方只強調 Golang 是 Concurrency 而沒有提到 Parallelism。</p>
+<p>這個環境變數的功用是，他限制了 Golang 最多可以用到幾個作業系統的 thread，例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GOMAXPROCS</span><span class="o">=</span><span class="m">1</span> go run .
+</code></pre></div><p>這樣 Go 的程式就只能開一個 OS thread 來跑。換句話說，這支 Go 的程式只能用到一個 CPU 的效能。
+而這個環境變數在 Go 1.5 版以前預設都是 1，所以沒有特別設定的話 Go 就只有 Concurrency 的功能並沒有 Parallelism。但在 Go 1.5 版以後，Go 會自動檢查系統有幾顆 CPU， 沒有特別設 GOMAXPROCS 的話，他的數值會自動帶入 CPU 的顆數。</p>
+<h3 id="結論">結論</h3>
+<p>其實會讓我這麼在意 Concurrecy 與 Parallelism 的原因是：我最開始寫的 server 是 node.js。</p>
+<p>Node.js 的架構比 Golang 還要更加的 Concurrency，基本上大部分 node.js Standard Library 裡面的 function 都是以 Concurrency 為前提做設計，但 node.js 有個讓我處理超久的問題，就是 node.js 是單線程的架構，也就是不管你的機器是 2 核心、8 核心還是 128 核心，能用到的 CPU 就是 1 顆。如果要用到多核心就只能額外多開幾個 node.js 程式建立 Cluster。而在伺服器上因為效能出問題時，我的第一個反應就是，把伺服器效能拉大，但換來的就只有帳單的數字加大而已，伺服器還是一直忙不過來。</p>
+<p>也就是因為以上的經驗，從此讓我對 Parallelism 相關的問題特別小心，所以我就花了許多時間來確認 Go 確實是可以一個程式吃到多個 CPU 效能的。</p>
+<h3 id="reference">Reference:</h3>
+<ul>
+<li><a href="https://medium.com/mr-efacani-teatime/concurrency%E8%88%87parallelism%E7%9A%84%E4%B8%8D%E5%90%8C%E4%B9%8B%E8%99%95-1b212a020e30">https://medium.com/mr-efacani-teatime/concurrency%E8%88%87parallelism%E7%9A%84%E4%B8%8D%E5%90%8C%E4%B9%8B%E8%99%95-1b212a020e30</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <title>全端工程師工作的第一年</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2019-12-09-first-year-of-work/</id>
+    <updated>2019-12-09T09:32:46Z</updated>
+    <published>2019-12-09T09:32:46Z</published>
+    <content type="html"><![CDATA[<h2 id="大學時期">大學時期</h2>
+<p>我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。</p>
+<h2 id="程式基礎">程式基礎</h2>
+<p>跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。</p>
+<p>科技發展速度太快了，尤其是在最貼近科技的軟體業當中，就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。</p>
+<p>至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。</p>
+<p>我就是在這個時期開始接觸並且自學<strong>前端</strong>開發。</p>
+<h2 id="前端">前端</h2>
+<p>最初找到的教學資源是 <a href="https://www.w3schools.com/">w3school</a>，<a href="https://www.w3schools.com/">w3school</a> 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。</p>
+<p>在 <a href="https://www.w3schools.com/">w3school</a> 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。</p>
+<p>在實作過程中，找到了可以加快開發速度的工具 -- <a href="https://emmet.io/">emmet</a>，用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。</p>
+<p><img src="https://code.visualstudio.com/assets/docs/editor/emmet/emmet.gif" alt="emmet gif from https://code.visualstudio.com/docs/editor/emmet"></p>
+<p>隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。</p>
+<h2 id="後端">後端</h2>
+<p>在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 <a href="https://nodejs.org/en/">node.js</a> 與 <a href="https://www.mongodb.com/">MongoDB</a>、找到了大家推薦的 <a href="https://nodejs.org/en/">node.js</a> web framework -- <a href="https://expressjs.com/zh-tw/">expressjs</a>。開始做一些簡單的 Project，並學習 Rest API 的開發方法。</p>
+<p>會了簡單的 Server rest API 開發後，碰上了 Single Page App(spa) 的熱潮。有了學習前端 Framework 的念頭</p>
+<h2 id="前端-framework">前端 Framework</h2>
+<p>著名的 SPA Framework 有 <a href="https://angular.io/">Angular</a>、<a href="https://zh-hant.reactjs.org/">React</a> 與後來的 <a href="https://vuejs.org/">Vue</a>。而一開始選擇接觸的 Framework 是 <a href="https://angular.io/">Angular</a>，但第一版的 <a href="https://angular.io/">Angular</a> 有著效能上的問題，還有不知道為什麼 <a href="https://zh-hant.reactjs.org/">React</a> 在台灣就是比較紅，考慮到之後找工作的需求，所以過沒多久就棄坑轉向 <a href="https://zh-hant.reactjs.org/">React</a>。</p>
+<p>其實在出社會找工作前，找了一個寫 <a href="https://vuejs.org/">Vue</a> 與後端的實習，但我在那個實習當中主要是處理後端 API，並不是主要開發 <a href="https://vuejs.org/">Vue</a>，只有稍微幫忙修復一點前端 Bug 與調整樣式，對 <a href="https://vuejs.org/">Vue</a> 的整個操作，並不是說非常熟悉，所以後續就不再贅述 <a href="https://vuejs.org/">Vue</a> 了，避免講了錯誤的內容。</p>
+<p>不管是 <a href="https://angular.io/">Angular</a>、<a href="https://zh-hant.reactjs.org/">React</a> 或 <a href="https://vuejs.org/">Vue</a>，網路上的學習資源都很多，官方網站的教學文件也很完整，Stackoverflow 等社群平台，也有很高的熱度，基本上遇到問題，都可以很輕易的找到解答，所以三者都是可以嘗試與投資學習的工具。</p>
+<p>說到學習 <a href="https://zh-hant.reactjs.org/">React</a>，我的學習方法大概就是不斷的找網路上的資源，例如：<a href="https://github.com/enaqx/awesome-react">awesome-react</a>、YouTube 影片等等。稍微提一下我覺得幾個做 <a href="https://zh-hant.reactjs.org/">React</a> 開發上比較重要的 Package:</p>
+<ol>
+<li><a href="https://create-react-app.dev/">Create-react-app</a></li>
+<li><a href="https://redux.js.org/">redux</a>, <a href="https://react-redux.js.org/introduction/quick-start">react-redux</a></li>
+<li><a href="https://reacttraining.com/react-router/">react-router</a></li>
+<li><a href="https://www.styled-components.com/">styled-components</a></li>
+</ol>
+<p>這幾個工具在公司裡面的 React Project 都有用到，非常推薦花時間去研究與使用。</p>
+<p>除了以上，比較共通性的 Package，也蠻推薦使用一些 component library:</p>
+<ol>
+<li><a href="https://material-ui.com/">material-ui</a></li>
+<li><a href="https://ant.design/docs/react/introduce">ant-design</a></li>
+<li><a href="https://jaredpalmer.com/formik/docs/overview">formik</a></li>
+</ol>
+<p>使用了 component library 可以大幅減少自己刻 component 與開發的時間。</p>
+<p>之後在工作上，基本上就是使用上述的 Package 與 Library 做開發。而開始工作之後，發現雖然個人實作的能力很重要，但很多功能不是自己一個人可以短時間完成的，需要與同事合作開發，才可以完成目標。這時候 coding style 與 code quality 就顯得格外重要，不僅是要看懂別人的 code，也要想辦法讓自己的 code 可以好讀、好懂。</p>
+<h2 id="code-quality">Code Quality</h2>
+<p>首先先介紹幾個關於 coding style 的文件:</p>
+<ol>
+<li><a href="https://github.com/ryanmcdermott/clean-code-javascript">clean-code-javascript</a></li>
+<li><a href="https://standardjs.com/rules.html">js standard</a></li>
+<li><a href="https://github.com/airbnb/javascript">airbnb stlye guide</a></li>
+</ol>
+<p>建議可以按照順序看下來，他們的文件分別從短到長，先從簡短的開始吸收比較有動力與成就感。我自已看完之後，是覺得有很多收穫，讓我在寫 code 的時候可以比較有自信，不用一直煩惱到底怎麼寫比較乾淨，怎麼寫別人才看得懂，不僅加快了開發速度，同事間溝通也快速許多。</p>
+<p>但總是有疏忽與不小心寫錯 code 或者是發懶覺得「也不過就是少了幾個空白沒什麼關係吧」的時候，你需要的是 <a href="https://eslint.org/">eslint</a> 幫忙自動修改你的 code 去符合 Project 設定的 coding style。</p>
+<p>在工作一年後，深深的體驗到 coding style 這種東西絕對不是可有可無，沒有儘早制定良好的 coding style 制度，就只會不斷累積技術債，讓後來的維運變得困難。</p>
+<h2 id="結語">結語</h2>
+<p>這大概就是我從開始學習程式到現在工作一年所經歷的一些心得，希望看到的人可以得到幫助。主要寫這篇的目的還是紀錄一下過去學習到的東西，也算是對在過去這些日子的自己有一個交代。</p>]]></content>
+  </entry>
+  <entry>
+    <title>Hugo &amp; Gatsby</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2019-12-05-hugo-gatsby/</id>
+    <updated>2019-12-05T15:41:55Z</updated>
+    <published>2019-12-05T15:41:55Z</published>
+    <content type="html"><![CDATA[<p>在研究 static site generator 的過程中，其實找到了三個主流的 Framework：Gatsby、Hugo、Hexo。三者都有做稍微的嘗試，但其中 Hexo 只有把範例 build 起來，並沒有像 Gatsby與 Hugo 去套用主題、去嘗試修改網頁樣式。所以就沒有要將 Hexo 列入討論比較，不過還是值得一提，Hexo 是由一位台灣的大神所寫，如果不想看一堆英文文件，Hexo 的中文文件是最完整的，稍微翻了一下 Hexo 的主題，也都十分簡潔好看，所以有中文需求的朋友可以考慮 Hexo。</p>
+<p>回歸正題，Gatsby 與 Hugo 的比較，Gatsby 跟 Hexo 一樣是全部使用 javascript，所以可以預期的是他 build 你的文章的時間絕對不短，再加上 Gatsby 的 renderer 是透過 React 來 render，這讓他的 building time 可以說是突破天際。</p>
+<h2 id="gatsby-使用心得">Gatsby 使用心得</h2>
+<p>最一開始我是用 Gatsby 來建立部落格的，因為我本身工作就是用 React 寫前端，所以很自然的就找到了 Gatsby，因為 React 使用者眾多的關係，讓 Gatsby 一直都有很高的熱度，Github 上的星星數量還超過了<strong>40K</strong>，可以參考與選擇的主題在<a href="https://www.gatsbyjs.org/showcase/">官網</a>上就超過 700 個。</p>
+<p>所以我就花了一段時間挑選了自己喜歡的主題，開始客制自己的網站，也寫了幾篇文章(2019/12以前的文章都是在 Gatsby 時期寫的)，放到 <a href="https://pages.github.com/">Github pages</a> 上。在上述的過程中，我就體驗到了 Gatsby building 時間的可怕，開發階段 run 起來大概需要 30 秒左右的時間，建立 production build 就需要超過 2 分鐘。</p>
+<p>會考慮 Gatsby 或 Hugo 的人，應該跟我都一樣是個工程師，有想要自己客制網站的想法，不然大可以跑去 Medium 甚至 facebook 發發貼文就好。所以，你會在一邊寫 Blog 的時候，一邊看著你的網站，一邊想著如何改進網站 style。</p>
+<p>我就會一邊寫著 markdown，改一下 Blog 的 css，甚至改寫一下頁面操作。雖然有 hot reload 的幫忙，讓大部分修改都可以很快的反應到 browser，但就是有些調整 hot reload 會沒有反應，這時候就要重新 build 整個網站。這時候就會不斷的體驗到上述的 building 時間。</p>
+<p>儘管等待 building time 讓人覺得有點困擾，但開發時的 30 秒也就喝個一杯水可以打發，還算可以忍受，而 deploy，也就是久久才一次，所以就照樣先在 local 端開發了一陣子，寫了幾篇文章，沒想過要換個 static site generator。</p>
+<p>直到最近有些 Project 因為 Github Pages 路徑衝突，需要不斷上傳新的 production build 做測試，才讓我下定覺得，應該要換 Hugo 試試看。</p>
+<h2 id="hugo-使用心得">Hugo 使用心得</h2>
+<p>剛開始用 Hugo 時，真的被他的 building time 嚇到，不管是跑開發用的 server，還是 production build 都在一秒以內，時間短到讓我以為我下錯指令，還多檢查了幾次 Terminal。</p>
+<p>這樣的速度完全體現了 Golang 的運算能力。</p>
+<p>讓我換到 Hugo 的原因不只有 build 的時間短而已，從使用 Gastby 以來，我不斷思考著，工作上就一直在使用 React 了，自己的空閒時間還要寫 React 稍微感到有些膩，可以換個工具學個新技術感覺新鮮許多。此外，我也認為部落格，只有少少的幾個版面配置而已，使用 React 會有種大材小用的感覺。</p>
+<h2 id="結語">結語</h2>
+<p>說了這麼多，在寫這篇文章的時候，我也才剛從 Gatsby 跳去 Hugo，所以可能還在蜜月期，還沒發現 Hugo 的缺點，所以也不知道會不會哪天又很不爽 Hugo 就跑到其他 static site generator(應該是不會啦，一直跳來跳去也很花時間)。</p>
+<p>最後想要說的是，每一個工具都有他的優缺點，我在意的優缺點跟其他人在意的優缺點也不一樣，所以我目前選擇 Hugo，不代表 Hugo 就是最好的選擇，寫這篇文章的目的，第一個是紀錄當初選擇的過程，第二大概就是希望可以提供我的觀點給跟我一樣有選擇障礙的其他人。畢竟，當初我自己也查了很多比較文章，還自己都嘗試過才選出來的，希望其他人可以少走一點彎路。</p>]]></content>
+  </entry>
+  <entry>
+    <title>用 Storybook 建立 React component library</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2019-11-09-storybook/</id>
+    <updated>2019-11-09T12:00:00Z</updated>
+    <published>2019-11-09T12:00:00Z</published>
+    <content type="html"><![CDATA[<p>近期因為公司擴張網站系統服務，從原本的主系統延伸出許多子系統，而這些子系統需要樣式、操作流程有個統一的規範與共用同樣的元件庫，希望能盡量減少許多不必要的複製貼上與管理負擔。所以在花了一點時間研究之後，找到了 <a href="https://storybook.js.org/">Storybook</a> 這樣的 Package。又經過了一段時間的嘗試(踩雷)之後，覺得是可以真正用在公司 Project 上的，所以就想來寫一下當初建立環境與嘗試的過程。</p>
+<h2 id="storybook-簡介">Storybook 簡介</h2>
+<p><a href="https://storybook.js.org/docs/basics/introduction/">Storyboook 官網</a> intruduction</p>
+<blockquote>
+<p>Storybook is a user interface development environment and playground for UI components. The tool enables developers to create components independently and showcase components interactively in an isolated development environment.</p>
+</blockquote>
+<p>簡單的來說，Storybook 就是一個 UI components 的開發環境與展示平台，讓你在開發前端元件的同時，將使用範例與文檔一併完成。</p>
+<h2 id="建立-storybook-專案">建立 Storybook 專案</h2>
+<p>範例 Source code: <a href="https://github.com/bugarma/react-storybook-example">https://github.com/bugarma/react-storybook-example</a></p>
+<p>要建立一個 Storybook 的專案有許多種方式：</p>
+<ol>
+<li>直接透過 Storybook 的 cli 建立</li>
+<li>先用 create-react-app(CRA) 初始化專案，再用 Storybook 的 cli 加入 Storybook</li>
+</ol>
+<p>我是用第二種方式，因為習慣用 CRA 的架構，公司專案也有需要用到 CRA 的功能。</p>
+<p>話不多說，首先建立專案：</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npx create-react-app storybook-example
+<span class="nb">cd</span> storybook-example
+
+npx -p @storybook/cli sb init
+</code></pre></div><p>如果仔細看一下 terminal 上面的 log，會發現 Storybook 自動偵測到了專案是由 CRA 建立的，進而建立符合 CRA 環境的內容。</p>
+<p>所以就不用再多做額外的 config 就可以使用 Storybook 了。</p>
+<p>接下來：</p>
+<pre><code>yarn storybook
+</code></pre><p>應該就可以看到 Storybook 的網頁自動開啟。</p>
+<p>我們可以對 <code>src/stories/1-Button.stories.js</code> 做一點修改看看效果</p>
+<div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">action</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@storybook/addon-actions&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Button</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@storybook/react/demo&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="c1">// 修改 group title
+</span><span class="c1"></span>  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;ButtonExample&#39;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// 修改子項目 title
+</span><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">textHelloButton</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">action</span><span class="p">(</span><span class="s1">&#39;clicked&#39;</span><span class="p">)}&gt;</span><span class="nx">Hello</span> <span class="nx">Button</span><span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;;</span>
+
+<span class="c1">// 修改子項目 title
+</span><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">emojiIsCool</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">action</span><span class="p">(</span><span class="s1">&#39;clicked&#39;</span><span class="p">)}&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">role</span><span class="o">=</span><span class="s">&#34;img&#34;</span> <span class="na">aria</span><span class="err">-</span><span class="na">label</span><span class="o">=</span><span class="s">&#34;so cool&#34;</span><span class="p">&gt;</span>
+      <span class="err">😀</span> <span class="err">😎</span> <span class="err">👍</span> <span class="err">💯</span>
+    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div><p>可以看到旁邊選項的 title 有改變，如下圖:</p>
+<p><img src="https://i.imgur.com/SHiAgNi.png" alt="example1"></p>
+<p>Storybook 建立 Story(也就是旁邊選項)的格式有三種：</p>
+<ol>
+<li><a href="https://storybook.js.org/docs/formats/component-story-format/">Component Story Format (CSF)</a></li>
+<li><a href="https://storybook.js.org/docs/formats/storiesof-api/">Stories of API</a></li>
+<li><a href="https://storybook.js.org/docs/formats/mdx-syntax/">MDX Syntax</a></li>
+</ol>
+<p>我們現在用的就是第一種 CSF。</p>
+<p>這時候可能會覺得，有種上當受騙的感覺...</p>
+<p>說好的自動產生 DOC 呢？</p>
+<p>別急，別急</p>
+<p>我們先裝一點東西</p>
+<pre><code>yarn add prop-types
+yarn add -D @storybook/addon-docs
+</code></pre><p>修改一下 storybook 的 config：
+在 <code>.storybook</code> 資料夾底下，新增 <code>presets.js</code> 檔案，並貼上以下的 code</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// .storybook/presets.js
+</span><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;@storybook/addon-docs/react/preset&#39;</span><span class="p">];</span>
+</code></pre></div><p>重新 run <code>yarn storybook</code></p>
+<p>應該就可以看到上方有多一個 <code>Docs</code> 的 Tab，裡面就是我們所想要自動產生的 DOC!!!</p>
+<p><img src="https://i.imgur.com/KBd2tvi.png" alt="example2"></p>
+<p>這時後我們就可以加入自己的 component 與 story了。
+<strong>注意： story 需要加在 <code>src/stories</code> 裡面，並且命名 <code>**.stories.js</code> 才吃的到</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// src/components/MyButton.js
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">PropTypes</span> <span class="nx">from</span> <span class="s1">&#39;prop-types&#39;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">buttonStyle</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#4CAF50&#39;</span><span class="p">,</span>
+  <span class="nx">border</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="s1">&#39;15px 32px&#39;</span><span class="p">,</span>
+  <span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+  <span class="nx">textDecoration</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+  <span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;inline-block&#39;</span><span class="p">,</span>
+  <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;16px&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">MyButton</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">buttonStyle</span><span class="p">}&gt;</span>
+      <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">MyButton</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="cm">/** Button Title 的 document 在這裏！！！ */</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">MyButton</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Button Title&#39;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">MyButton</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// src/stories/2-MyButton.stories.js
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="nx">MyButton</span> <span class="nx">from</span> <span class="s2">&#34;../components/MyButton&#34;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;MyCustomButton&#39;</span><span class="p">,</span>
+  <span class="c1">// 中間 Component Document 來源
+</span><span class="c1"></span>  <span class="nx">component</span><span class="o">:</span> <span class="nx">MyButton</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">MyButton1</span><span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">MyButton</span><span class="p">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">MyButton2</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">MyButton</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;MyButton2&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>加入以上兩個檔案之後就可以看到 magic 的部分了！漂亮的文件頁面產生了！</p>
+<p>可以注意到以下紅筐的部分：</p>
+<p><img src="https://i.imgur.com/HSwYSmC.png" alt="example3"></p>
+<p>這是最神奇的地方，裡面的內容是透過 compoent 的 propTypes 與 defaultProps 產生出來的，等於只要做平常的工作，建立好完整的 type checking 機制後，再補上一些註解，Storybook 就可以幫你自動產生文件！！</p>
+<p>可以試著修改 <code>src/component/MyButton.js</code> 裡面的 propTypes與 defaultProps，看看文件頁面有什麼變動。</p>
+<h2 id="後記">後記</h2>
+<p>文章有誤可以 email 給我，或到我的 <a href="https://github.com/bugarma/react-storybook-example">github repo</a> 開 issue 感謝！！</p>
+<p>Storybook 是個好用的工具，但目前官方的文件還不是很完整，也比較少他人使用心得，所以我就寫了入門筆記，希望對想要自己建立元件庫(ex: material-ui、ant-design...等等)的朋友有幫助，畢竟元件庫好不好用，文件真的很重要！</p>
+<p>最後，希望喜歡這篇文章的朋友，可以到我的 <a href="https://github.com/bugarma/react-storybook-example">github repo</a> 按個星星支持一下，謝謝</p>]]></content>
+  </entry>
+  <entry>
+    <title>開發工具分享</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2019-08-19-develop-tool-part1/</id>
+    <updated>2019-08-19T12:00:00Z</updated>
+    <published>2019-08-19T12:00:00Z</published>
+    <content type="html"><![CDATA[<p><strong>簡單分享一下自己覺得好用的 code sharing 的工具</strong></p>
+<p>在 demo 自己實作的程式時，常常需要分享寫出來的 code，但在製作投影片時，不像網頁或是文字編輯器的環境，有 syntax highlight 的幫忙，只能貼上跑版的純文字來炸別人眼睛，或是擷取文字編輯器的畫面。這些做法不是麻煩，就是不美觀。所以就找了幾個好用的工具來幫忙處理這些瑣事。</p>
+<h3 id="1-carbonhttpscarbonnowsh"><a href="https://carbon.now.sh/">1. Carbon</a></h3>
+<p><img src="https://i.imgur.com/UPGDseE.png" alt="carbon photo"></p>
+<p style="text-align: center;">
+  (image from <a href="https://carbon.now.sh/">carbon</a>)
+</p>
+<p>Carbon 可以把你的 code 轉成 png、svg，還可以建立 url，甚至 embed 進網頁。</p>
+<p>使用方法就是點進網頁後把要分享的 code 貼上去，並調整成想要的樣式，之後 export 就可以選擇格式輸出。</p>
+<h3 id="2-polacodehttpsgithubcomoctrefpolacode"><a href="https://github.com/octref/polacode">2. Polacode</a></h3>
+<p><img src="https://imgur.com/oTrkD9o.gif" alt="polacode photo"></p>
+<p style="text-align: center;">
+  (image from <a href="https://marketplace.visualstudio.com/items?itemName=pnp.polacode">polacode</a>)
+</p>
+<p>Polacode 是 VSCode 的一個 extension，可以說是 Carbon 的延伸版，Polacode 的作者也說他受 Carbon 啟發。</p>
+<p>功能上比 Carbon 更好用，是直接從文字編輯器輸出，可以直接拖拉改變輸出樣式。如果平常就是使用 VSCode 的話，十分建議安裝使用。</p>
+<h3 id="3-revealjshttpsrevealjscom"><a href="https://revealjs.com/#/">3. reveal.js</a></h3>
+<p><img src="https://i.imgur.com/OPF4YJs.png" alt="revealjs photo"></p>
+<p>Reveal.js 是提供網頁製作投影片的 Framework。以網頁為基礎，提供了大量的客製空間，網頁做的到的事情他都可以做的到，可以說是功能十分強大。</p>
+<p><img src="https://i.imgur.com/Lr5HgLH.png" alt="reveal.js photo"></p>
+<p>以 code sharing 的角度來看，Reveal.js 使用 highlight.js 來提供 syntax highlight，所以只要用 Reveal.js 來做投影片就不用擔心 code 沒有上色不好看。</p>
+<p>如果喜歡寫 code，想用 html &amp; javascript 來控制投影片，可以試試看 Reveal.js。此外 Reveal.js 也有提供類似 google slide 的線上編輯網頁，給不會寫 code 或習慣用 GUI 的使用者，都可以去參考使用看看。</p>]]></content>
+  </entry>
+  <entry>
+    <title>React Native &amp; Flutter 簡單比較</title>
+    <author>
+      <name>Aaron Jen</name>
+      <uri>/</uri>
+    </author>
+    <id>https://aaronjen.github.io/2019-07-19-react-native-vs-flutter/</id>
+    <updated>2019-07-19T12:00:00Z</updated>
+    <published>2019-07-19T12:00:00Z</published>
+    <content type="html"><![CDATA[<p><strong>在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論</strong></p>
+<hr>
+<p><strong>先歸納一些總結</strong>：<br>
+<strong>效能方面</strong>：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。<br>
+<strong>開發工具</strong>：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。<br>
+<strong>元件與API</strong>：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。<br>
+<strong>社群人數</strong>：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。</p>
+<hr>
+<p>在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。</p>
+<p><img src="https://i.imgur.com/Ebi7Qun.png" alt="RNvsFlutter"></p>
+<p><strong>效能比較：</strong></p>
+<p>APP 的效能就程式架構來說，Flutter 有經過 c/c++ compile 理論上是會勝過 React native，但網路上有文章說兩者的效能其實是差不多的，這個部分有興趣可以做點實驗來研究，<strong>重點是兩者的效能都很不錯，都是真正可以產品化的技術。</strong></p>
+<p><strong>開發工具：</strong></p>
+<p>兩者的開發工具都有支援 Live reload 可以讓你改文 code 後儲存馬上就反應，所以開發起來都很快速順暢，但 Flutter 又更厲害一點，因為他可以保持目前的狀態(詳情請看 <a href="https://flutter.dev/">Flutter 官方網站</a>)。</p>
+<p><strong>元件與API：</strong></p>
+<p>這個部分就是React native 大勝，畢竟發展的歷史比起 Flutter 長了許多，累積了不少好用的元件與API (ex: Image Picker、Photo library api)，雖然兩者都可以透過實作 native language api 的方式來完成所有平台可以做到的事情，但有現成且好用的元件就大大減少了許多需要自行處理的問題。<strong>如果是想要 prototype 或是產品有迫切的時程壓力可能就要好好比較一下關鍵的元件是否缺失。</strong></p>
+<p><strong>社群人數：</strong></p>
+<p>React native 有較長的歷史，留下的痕跡絕對是比 Flutter 多上許多的，所以在開發中遇到的問題，基本上 StackOverflow 都有人解答過了，省去了不少查資料翻 api 的時間。</p>
+<hr>
+<p><strong>最後來提一下為何會嘗試了兩個 Framework。</strong></p>
+<p>最近 side project 想做一個關於照片整理與上傳的 app，就嘗試了發展一段時間的 React native。因為有 React 的基礎所以實作起來真的很順手，直到遇到了照片上傳…。</p>
+<p>React native 以 javascript 為 engine，建立了 javascript 與 native language 之間的 bridge，讓開發者可以在 javascript 中就完成 app 的建置。而這個 bridge 主要是使用 JSON string 來溝通。</p>
+<p>雖然在 Browser 跟 node 的環境都有支援 blob，但不知道為什麼 React native 的環境 blob 的支援很殘破，想要上傳檔案都只能透過 React native API 將 local file 轉成 base64 的格式，才能做後續的處理。</p>
+<p>查了許多資料，花了好幾天的時候一直都無法克服檔案上傳的問題(因為使用的雲端上傳 API 只支援 binary 檔案上傳，base64 轉檔一直無法成功)，所以就找到了 Flutter。</p>
+<p>在花了三天看完 Flutter 的介紹與 tutorial 後，確定 Flutter 可以解決我遇到的檔案傳輸問題後，就準備開始了移植 React native code 的工程，結果還沒開始移植就遇到了問題。<strong>我沒辦法取得手機裡面的照片…</strong></p>
+<p>查了許久發現好像沒有相關的 API，所以得自己寫 native code 來取得資料，查到這裡我就放棄 Flutter 了，如果要寫 native code 就直接用 React native 就好。</p>
+<p>在只是一個小 project 的情況下，我放棄了 Flutter 選擇回到了 API 還有元件較多的 React native，並放棄了資料上傳這件事。畢竟 React native 的 API 有支援照片存取，至少還可以寫整理相片的部分，沒有相關存取照片的 API 就算可以上傳 binary 資料也沒用，因為根本沒東西可以傳啊……</p>]]></content>
+  </entry>
+</feed>

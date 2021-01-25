@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2019-11-09-storybook/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>用 Storybook 建立 React component library : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="用 Storybook 建立 React component library">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2019-11-09-storybook/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="Storybook 介紹、環境建置與簡單操作">
+<meta name="description" content="Storybook 介紹、環境建置與簡單操作">
+<meta property="og:updated_time" content="2019-11-09T12:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2019-11-09T12:00:00Z">
+<meta property="article:modified_time" content="2019-11-09T12:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "用 Storybook 建立 React component library",
+  "alternativeHeadline": "Storybook 介紹、環境建置與簡單操作",
+  "url": "https://aaronjen.github.io/2019-11-09-storybook/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2019-11-09-storybook/"
+  },
+  "description": "Storybook 介紹、環境建置與簡單操作",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2019-11-09T12:00:00Z",
+  "dateModified": "2019-11-09T12:00:00Z",
+  "articleBody": "\u003cp\u003e近期因為公司擴張網站系統服務，\u0008從原本的主系統延伸出許多子系統，而這些子系統需要樣式、操作流程有個統一的規範與共用同樣的元件庫，希望能盡量減少許多不必要的複製貼上與管理負擔。所以在花了一點時間研究之後，找到了 \u003ca href=\"https://storybook.js.org/\"\u003eStorybook\u003c/a\u003e 這樣的 Package\u0008\u0008。又經過了一段時間的嘗試(踩雷)之後，覺得是可以真正用在公司 Project 上的，所以就想來寫一下當初建立環境與嘗試的過程。\u003c/p\u003e\n\u003ch2 id=\"storybook-簡介\"\u003eStorybook 簡介\u003c/h2\u003e\n\u003cp\u003e\u003ca href=\"https://storybook.js.org/docs/basics/introduction/\"\u003eStoryboook 官網\u003c/a\u003e intruduction\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eStorybook is a user interface development environment and playground for UI components. The tool enables developers to create components independently and showcase components interactively in an isolated development environment.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e簡單的來說，Storybook 就是一個 UI components 的開發環境與展示平台，讓你在開發前端元件的同時，將使用範例與文檔一併完成。\u003c/p\u003e\n\u003ch2 id=\"建立-storybook-專案\"\u003e建立 Storybook 專案\u003c/h2\u003e\n\u003cp\u003e範例 Source code: \u003ca href=\"https://github.com/bugarma/react-storybook-example\"\u003ehttps://github.com/bugarma/react-storybook-example\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e要建立一個 Storybook 的專案有許多種方式：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e直接透過 Storybook 的 cli 建立\u003c/li\u003e\n\u003cli\u003e\u0008先用 create-react-app(CRA) 初始化專案，再用 Storybook 的 cli 加入 Storybook\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e我是用第二種方式，因為習慣用 CRA 的架構，公司專案也有需要用到 CRA 的功能。\u003c/p\u003e\n\u003cp\u003e話不多說，首先建立專案：\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-bash\" data-lang=\"bash\"\u003enpx create-react-app storybook-example\n\u003cspan class=\"nb\"\u003ecd\u003c/span\u003e storybook-example\n\nnpx -p @storybook/cli sb init\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e如果仔細看一下 terminal 上面的 log，會發現 Storybook 自動偵測到了專案是由 CRA 建立的，進而建立符合 CRA 環境的內容。\u003c/p\u003e\n\u003cp\u003e所以就不用再多做額外的 config 就可以使用 Storybook 了。\u003c/p\u003e\n\u003cp\u003e接下來：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eyarn storybook\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e應該就可以看到 Storybook 的網頁自動開啟。\u003c/p\u003e\n\u003cp\u003e我們可以對 \u003ccode\u003esrc/stories/1-Button.stories.js\u003c/code\u003e 做一點修改看看效果\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-jsx\" data-lang=\"jsx\"\u003e\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"nx\"\u003eReact\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;react\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"nx\"\u003eaction\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;@storybook/addon-actions\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"nx\"\u003eButton\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;@storybook/react/demo\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"k\"\u003edefault\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"c1\"\u003e// 修改 group title\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e  \u003cspan class=\"nx\"\u003etitle\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;ButtonExample\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n\u003cspan class=\"p\"\u003e};\u003c/span\u003e\n\n\u003cspan class=\"c1\"\u003e// 修改子項目 title\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003etextHelloButton\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e()\u003c/span\u003e \u003cspan class=\"p\"\u003e=\u0026gt;\u003c/span\u003e \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003eButton\u003c/span\u003e \u003cspan class=\"na\"\u003eonClick\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"p\"\u003e{\u003c/span\u003e\u003cspan class=\"nx\"\u003eaction\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"s1\"\u003e\u0026#39;clicked\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e)}\u0026gt;\u003c/span\u003e\u003cspan class=\"nx\"\u003eHello\u003c/span\u003e \u003cspan class=\"nx\"\u003eButton\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026lt;/\u003c/span\u003e\u003cspan class=\"nt\"\u003eButton\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026gt;;\u003c/span\u003e\n\n\u003cspan class=\"c1\"\u003e// 修改子項目 title\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003eemojiIsCool\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e()\u003c/span\u003e \u003cspan class=\"p\"\u003e=\u0026gt;\u003c/span\u003e \u003cspan class=\"p\"\u003e(\u003c/span\u003e\n  \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003eButton\u003c/span\u003e \u003cspan class=\"na\"\u003eonClick\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"p\"\u003e{\u003c/span\u003e\u003cspan class=\"nx\"\u003eaction\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"s1\"\u003e\u0026#39;clicked\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e)}\u0026gt;\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003espan\u003c/span\u003e \u003cspan class=\"na\"\u003erole\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\u0026#34;img\u0026#34;\u003c/span\u003e \u003cspan class=\"na\"\u003earia\u003c/span\u003e\u003cspan class=\"err\"\u003e-\u003c/span\u003e\u003cspan class=\"na\"\u003elabel\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\u0026#34;so cool\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026gt;\u003c/span\u003e\n      \u003cspan class=\"err\"\u003e😀\u003c/span\u003e \u003cspan class=\"err\"\u003e😎\u003c/span\u003e \u003cspan class=\"err\"\u003e👍\u003c/span\u003e \u003cspan class=\"err\"\u003e💯\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;/\u003c/span\u003e\u003cspan class=\"nt\"\u003espan\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026gt;\u003c/span\u003e\n  \u003cspan class=\"p\"\u003e\u0026lt;/\u003c/span\u003e\u003cspan class=\"nt\"\u003eButton\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026gt;\u003c/span\u003e\n\u003cspan class=\"p\"\u003e);\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e可以看到旁邊選項的 title 有改變，如下圖:\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/SHiAgNi.png\" alt=\"example1\"\u003e\u003c/p\u003e\n\u003cp\u003eStorybook 建立 Story(也就是旁邊選項)的格式有三種：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\"https://storybook.js.org/docs/formats/component-story-format/\"\u003eComponent Story Format (CSF)\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://storybook.js.org/docs/formats/storiesof-api/\"\u003eStories of API\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://storybook.js.org/docs/formats/mdx-syntax/\"\u003eMDX Syntax\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e我們現在用的就是第一種 CSF。\u003c/p\u003e\n\u003cp\u003e這時候可能會覺得，有種上當受騙的感覺...\u003c/p\u003e\n\u003cp\u003e說好的自動產生 DOC 呢？\u003c/p\u003e\n\u003cp\u003e別急，別急\u003c/p\u003e\n\u003cp\u003e我們先裝一點東西\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eyarn add prop-types\nyarn add -D @storybook/addon-docs\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e修改一下 storybook 的 config：\n在 \u003ccode\u003e.storybook\u003c/code\u003e 資料夾底下，新增 \u003ccode\u003epresets.js\u003c/code\u003e 檔案，並貼上以下的 code\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-js\" data-lang=\"js\"\u003e\u003cspan class=\"c1\"\u003e// .storybook/presets.js\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e\u003cspan class=\"nx\"\u003emodule\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003eexports\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e[\u003c/span\u003e\u003cspan class=\"s1\"\u003e\u0026#39;@storybook/addon-docs/react/preset\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e];\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e重新 run \u003ccode\u003eyarn storybook\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e應該就可以看到上方有多一個 \u003ccode\u003eDocs\u003c/code\u003e 的 Tab，裡面就是我們所想要自動產生的 DOC!!!\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/KBd2tvi.png\" alt=\"example2\"\u003e\u003c/p\u003e\n\u003cp\u003e這時後我們就可以加入自己的 component 與 story了。\n\u003cstrong\u003e注意： story 需要加在 \u003ccode\u003esrc/stories\u003c/code\u003e 裡面，並且命名 \u003ccode\u003e**.stories.js\u003c/code\u003e 才吃的到\u003c/strong\u003e\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-jsx\" data-lang=\"jsx\"\u003e\u003cspan class=\"c1\"\u003e// src/components/MyButton.js\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"nx\"\u003eReact\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;react\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"nx\"\u003ePropTypes\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;prop-types\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003ebuttonStyle\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003ebackgroundColor\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;#4CAF50\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003eborder\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;none\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003ecolor\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;white\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003epadding\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;15px 32px\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003etextAlign\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;center\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003etextDecoration\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;none\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003edisplay\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;inline-block\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003efontSize\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;16px\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"nx\"\u003eprops\u003c/span\u003e\u003cspan class=\"p\"\u003e)\u003c/span\u003e \u003cspan class=\"p\"\u003e=\u0026gt;\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"p\"\u003e(\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003ebutton\u003c/span\u003e \u003cspan class=\"na\"\u003estyle\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"p\"\u003e{\u003c/span\u003e\u003cspan class=\"nx\"\u003ebuttonStyle\u003c/span\u003e\u003cspan class=\"p\"\u003e}\u0026gt;\u003c/span\u003e\n      \u003cspan class=\"p\"\u003e{\u003c/span\u003e\u003cspan class=\"nx\"\u003eprops\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003etitle\u003c/span\u003e\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;/\u003c/span\u003e\u003cspan class=\"nt\"\u003ebutton\u003c/span\u003e\u003cspan class=\"p\"\u003e\u0026gt;\u003c/span\u003e\n  \u003cspan class=\"p\"\u003e);\u003c/span\u003e\n\u003cspan class=\"p\"\u003e};\u003c/span\u003e\n\n\u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003epropTypes\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"cm\"\u003e/** Button Title 的 document 在這裏！！！ */\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003etitle\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"nx\"\u003ePropTypes\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003estring\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\n\u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003edefaultProps\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003etitle\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;Button Title\u0026#39;\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"k\"\u003edefault\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-jsx\" data-lang=\"jsx\"\u003e\u003cspan class=\"c1\"\u003e// src/stories/2-MyButton.stories.js\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"nx\"\u003eReact\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;react\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eimport\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e \u003cspan class=\"nx\"\u003efrom\u003c/span\u003e \u003cspan class=\"s2\"\u003e\u0026#34;../components/MyButton\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"k\"\u003edefault\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"nx\"\u003etitle\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"s1\"\u003e\u0026#39;MyCustomButton\u0026#39;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n  \u003cspan class=\"c1\"\u003e// 中間 Component Document 來源\n\u003c/span\u003e\u003cspan class=\"c1\"\u003e\u003c/span\u003e  \u003cspan class=\"nx\"\u003ecomponent\u003c/span\u003e\u003cspan class=\"o\"\u003e:\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton1\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e()\u003c/span\u003e \u003cspan class=\"p\"\u003e=\u0026gt;\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"p\"\u003e(\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003eMyButton\u003c/span\u003e\u003cspan class=\"p\"\u003e/\u0026gt;\u003c/span\u003e\n  \u003cspan class=\"p\"\u003e)\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\n\u003cspan class=\"kr\"\u003eexport\u003c/span\u003e \u003cspan class=\"kr\"\u003econst\u003c/span\u003e \u003cspan class=\"nx\"\u003eMyButton2\u003c/span\u003e \u003cspan class=\"o\"\u003e=\u003c/span\u003e \u003cspan class=\"p\"\u003e()\u003c/span\u003e \u003cspan class=\"p\"\u003e=\u0026gt;\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n  \u003cspan class=\"k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"p\"\u003e(\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e\u0026lt;\u003c/span\u003e\u003cspan class=\"nt\"\u003eMyButton\u003c/span\u003e \u003cspan class=\"na\"\u003etitle\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\u0026#34;MyButton2\u0026#34;\u003c/span\u003e \u003cspan class=\"p\"\u003e/\u0026gt;\u003c/span\u003e\n  \u003cspan class=\"p\"\u003e)\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e加入以上兩個檔案之後就可以看到 magic 的部分了！漂亮的文件頁面產生了！\u003c/p\u003e\n\u003cp\u003e可以注意到以下紅筐的部分：\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/HSwYSmC.png\" alt=\"example3\"\u003e\u003c/p\u003e\n\u003cp\u003e這是最神奇的地方，裡面的內容是透過 compoent 的 propTypes 與 defaultProps 產生出來的，等於只要做平常的工作，建立好完整的 type checking 機制後，再補上一些註解，Storybook 就可以幫你自動產生文件！！\u003c/p\u003e\n\u003cp\u003e可以試著修改 \u003ccode\u003esrc/component/MyButton.js\u003c/code\u003e 裡面的 propTypes與 defaultProps，看看文件頁面有什麼變動。\u003c/p\u003e\n\u003ch2 id=\"後記\"\u003e後記\u003c/h2\u003e\n\u003cp\u003e文章有誤可以 email 給我，或到我的 \u003ca href=\"https://github.com/bugarma/react-storybook-example\"\u003egithub repo\u003c/a\u003e 開 issue 感謝！！\u003c/p\u003e\n\u003cp\u003e\u0008\u0008Storybook 是個好用的工具，但目前官方的文件還不是很完整，也比較少他人使用心得，所以我就寫了入門筆記，希望對想要自己建立元件庫(ex: material-ui、ant-design...等等)的朋友有幫助，畢竟元件庫好不好用，文件真的很重要！\u003c/p\u003e\n\u003cp\u003e最後，希望喜歡這篇文章的朋友，可以到我的 \u003ca href=\"https://github.com/bugarma/react-storybook-example\"\u003egithub repo\u003c/a\u003e 按個星星支持一下，謝謝\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547496">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">用 Storybook 建立 React component library</h1>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2019-11-09T12:00:00Z">Nov 9, 2019</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<p>近期因為公司擴張網站系統服務，從原本的主系統延伸出許多子系統，而這些子系統需要樣式、操作流程有個統一的規範與共用同樣的元件庫，希望能盡量減少許多不必要的複製貼上與管理負擔。所以在花了一點時間研究之後，找到了 <a href="https://storybook.js.org/">Storybook</a> 這樣的 Package。又經過了一段時間的嘗試(踩雷)之後，覺得是可以真正用在公司 Project 上的，所以就想來寫一下當初建立環境與嘗試的過程。</p>
+<h2 id="storybook-簡介">Storybook 簡介</h2>
+<p><a href="https://storybook.js.org/docs/basics/introduction/">Storyboook 官網</a> intruduction</p>
+<blockquote>
+<p>Storybook is a user interface development environment and playground for UI components. The tool enables developers to create components independently and showcase components interactively in an isolated development environment.</p>
+</blockquote>
+<p>簡單的來說，Storybook 就是一個 UI components 的開發環境與展示平台，讓你在開發前端元件的同時，將使用範例與文檔一併完成。</p>
+<h2 id="建立-storybook-專案">建立 Storybook 專案</h2>
+<p>範例 Source code: <a href="https://github.com/bugarma/react-storybook-example">https://github.com/bugarma/react-storybook-example</a></p>
+<p>要建立一個 Storybook 的專案有許多種方式：</p>
+<ol>
+<li>直接透過 Storybook 的 cli 建立</li>
+<li>先用 create-react-app(CRA) 初始化專案，再用 Storybook 的 cli 加入 Storybook</li>
+</ol>
+<p>我是用第二種方式，因為習慣用 CRA 的架構，公司專案也有需要用到 CRA 的功能。</p>
+<p>話不多說，首先建立專案：</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npx create-react-app storybook-example
+<span class="nb">cd</span> storybook-example
+
+npx -p @storybook/cli sb init
+</code></pre></div><p>如果仔細看一下 terminal 上面的 log，會發現 Storybook 自動偵測到了專案是由 CRA 建立的，進而建立符合 CRA 環境的內容。</p>
+<p>所以就不用再多做額外的 config 就可以使用 Storybook 了。</p>
+<p>接下來：</p>
+<pre><code>yarn storybook
+</code></pre><p>應該就可以看到 Storybook 的網頁自動開啟。</p>
+<p>我們可以對 <code>src/stories/1-Button.stories.js</code> 做一點修改看看效果</p>
+<div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">action</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@storybook/addon-actions&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Button</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@storybook/react/demo&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="c1">// 修改 group title
+</span><span class="c1"></span>  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;ButtonExample&#39;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// 修改子項目 title
+</span><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">textHelloButton</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">action</span><span class="p">(</span><span class="s1">&#39;clicked&#39;</span><span class="p">)}&gt;</span><span class="nx">Hello</span> <span class="nx">Button</span><span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;;</span>
+
+<span class="c1">// 修改子項目 title
+</span><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">emojiIsCool</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">action</span><span class="p">(</span><span class="s1">&#39;clicked&#39;</span><span class="p">)}&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">role</span><span class="o">=</span><span class="s">&#34;img&#34;</span> <span class="na">aria</span><span class="err">-</span><span class="na">label</span><span class="o">=</span><span class="s">&#34;so cool&#34;</span><span class="p">&gt;</span>
+      <span class="err">😀</span> <span class="err">😎</span> <span class="err">👍</span> <span class="err">💯</span>
+    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div><p>可以看到旁邊選項的 title 有改變，如下圖:</p>
+<p><img src="https://i.imgur.com/SHiAgNi.png" alt="example1"></p>
+<p>Storybook 建立 Story(也就是旁邊選項)的格式有三種：</p>
+<ol>
+<li><a href="https://storybook.js.org/docs/formats/component-story-format/">Component Story Format (CSF)</a></li>
+<li><a href="https://storybook.js.org/docs/formats/storiesof-api/">Stories of API</a></li>
+<li><a href="https://storybook.js.org/docs/formats/mdx-syntax/">MDX Syntax</a></li>
+</ol>
+<p>我們現在用的就是第一種 CSF。</p>
+<p>這時候可能會覺得，有種上當受騙的感覺...</p>
+<p>說好的自動產生 DOC 呢？</p>
+<p>別急，別急</p>
+<p>我們先裝一點東西</p>
+<pre><code>yarn add prop-types
+yarn add -D @storybook/addon-docs
+</code></pre><p>修改一下 storybook 的 config：
+在 <code>.storybook</code> 資料夾底下，新增 <code>presets.js</code> 檔案，並貼上以下的 code</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// .storybook/presets.js
+</span><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;@storybook/addon-docs/react/preset&#39;</span><span class="p">];</span>
+</code></pre></div><p>重新 run <code>yarn storybook</code></p>
+<p>應該就可以看到上方有多一個 <code>Docs</code> 的 Tab，裡面就是我們所想要自動產生的 DOC!!!</p>
+<p><img src="https://i.imgur.com/KBd2tvi.png" alt="example2"></p>
+<p>這時後我們就可以加入自己的 component 與 story了。
+<strong>注意： story 需要加在 <code>src/stories</code> 裡面，並且命名 <code>**.stories.js</code> 才吃的到</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// src/components/MyButton.js
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">PropTypes</span> <span class="nx">from</span> <span class="s1">&#39;prop-types&#39;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">buttonStyle</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#4CAF50&#39;</span><span class="p">,</span>
+  <span class="nx">border</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="s1">&#39;15px 32px&#39;</span><span class="p">,</span>
+  <span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+  <span class="nx">textDecoration</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+  <span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;inline-block&#39;</span><span class="p">,</span>
+  <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;16px&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">MyButton</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">buttonStyle</span><span class="p">}&gt;</span>
+      <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">MyButton</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="cm">/** Button Title 的 document 在這裏！！！ */</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">MyButton</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Button Title&#39;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">MyButton</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// src/stories/2-MyButton.stories.js
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="nx">MyButton</span> <span class="nx">from</span> <span class="s2">&#34;../components/MyButton&#34;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;MyCustomButton&#39;</span><span class="p">,</span>
+  <span class="c1">// 中間 Component Document 來源
+</span><span class="c1"></span>  <span class="nx">component</span><span class="o">:</span> <span class="nx">MyButton</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">MyButton1</span><span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">MyButton</span><span class="p">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">MyButton2</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">MyButton</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;MyButton2&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>加入以上兩個檔案之後就可以看到 magic 的部分了！漂亮的文件頁面產生了！</p>
+<p>可以注意到以下紅筐的部分：</p>
+<p><img src="https://i.imgur.com/HSwYSmC.png" alt="example3"></p>
+<p>這是最神奇的地方，裡面的內容是透過 compoent 的 propTypes 與 defaultProps 產生出來的，等於只要做平常的工作，建立好完整的 type checking 機制後，再補上一些註解，Storybook 就可以幫你自動產生文件！！</p>
+<p>可以試著修改 <code>src/component/MyButton.js</code> 裡面的 propTypes與 defaultProps，看看文件頁面有什麼變動。</p>
+<h2 id="後記">後記</h2>
+<p>文章有誤可以 email 給我，或到我的 <a href="https://github.com/bugarma/react-storybook-example">github repo</a> 開 issue 感謝！！</p>
+<p>Storybook 是個好用的工具，但目前官方的文件還不是很完整，也比較少他人使用心得，所以我就寫了入門筆記，希望對想要自己建立元件庫(ex: material-ui、ant-design...等等)的朋友有幫助，畢竟元件庫好不好用，文件真的很重要！</p>
+<p>最後，希望喜歡這篇文章的朋友，可以到我的 <a href="https://github.com/bugarma/react-storybook-example">github repo</a> 按個星星支持一下，謝謝</p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547496"></script>
+
+
+</body>
+</html>

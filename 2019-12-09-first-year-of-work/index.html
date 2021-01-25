@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2019-12-09-first-year-of-work/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>全端工程師工作的第一年 : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="全端工程師工作的第一年">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2019-12-09-first-year-of-work/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="大學時期 我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。 程式基礎 跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。 科技發展速度太快了，尤其是在最貼近科技的軟體業當中，就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。 至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。 我就是在這個時期開始接觸並且自學前端開發。 前端 最初找到的教學資源是 w3school，w3school 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。 在 w3school 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。 在實作過程中，找到了可以加快開發速度的工具 -- emmet，用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。 隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。 後端 在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 node.">
+<meta name="description" content="大學時期 我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。 程式基礎 跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。 科技發展速度太快了，尤其是在最貼近科技的軟體業當中，就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。 至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。 我就是在這個時期開始接觸並且自學前端開發。 前端 最初找到的教學資源是 w3school，w3school 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。 在 w3school 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。 在實作過程中，找到了可以加快開發速度的工具 -- emmet，用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。 隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。 後端 在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 node.">
+<meta property="og:updated_time" content="2019-12-09T09:32:46Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2019-12-09T09:32:46Z">
+<meta property="article:modified_time" content="2019-12-09T09:32:46Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "全端工程師工作的第一年",
+  "alternativeHeadline": "作為全端工程師也過了一年，想記錄一下從學生時期到工作的心路歷程。",
+  "url": "https://aaronjen.github.io/2019-12-09-first-year-of-work/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2019-12-09-first-year-of-work/"
+  },
+  "description": "大學時期 我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。 程式基礎 跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。 科技發展速度太快了，尤其是在最貼近科技的軟體業當中，\u0008就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。 至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。 我就是在這個時期開始接觸並且自學前端開發。 前端 最初找到的教學資源是 w3school，w3school 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。 在 w3school 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。 在實作過程中，找到了可以加快開發速度的工具 -- emmet，\u0008用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。 隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。 後端 在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 node.",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2019-12-09T09:32:46Z",
+  "dateModified": "2019-12-09T09:32:46Z",
+  "articleBody": "\u003ch2 id=\"大學時期\"\u003e大學時期\u003c/h2\u003e\n\u003cp\u003e我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。\u003c/p\u003e\n\u003ch2 id=\"程式基礎\"\u003e程式基礎\u003c/h2\u003e\n\u003cp\u003e跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。\u003c/p\u003e\n\u003cp\u003e科技發展速度太快了，尤其是在最貼近科技的軟體業當中，\u0008就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。\u003c/p\u003e\n\u003cp\u003e至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。\u003c/p\u003e\n\u003cp\u003e我就是在這個時期開始接觸並且自學\u003cstrong\u003e前端\u003c/strong\u003e開發。\u003c/p\u003e\n\u003ch2 id=\"前端\"\u003e前端\u003c/h2\u003e\n\u003cp\u003e最初找到的教學資源是 \u003ca href=\"https://www.w3schools.com/\"\u003ew3school\u003c/a\u003e，\u003ca href=\"https://www.w3schools.com/\"\u003ew3school\u003c/a\u003e 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。\u003c/p\u003e\n\u003cp\u003e在 \u003ca href=\"https://www.w3schools.com/\"\u003ew3school\u003c/a\u003e 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。\u003c/p\u003e\n\u003cp\u003e在實作過程中，找到了可以加快開發速度的工具 -- \u003ca href=\"https://emmet.io/\"\u003eemmet\u003c/a\u003e，\u0008用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://code.visualstudio.com/assets/docs/editor/emmet/emmet.gif\" alt=\"emmet gif from https://code.visualstudio.com/docs/editor/emmet\"\u003e\u003c/p\u003e\n\u003cp\u003e隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。\u003c/p\u003e\n\u003ch2 id=\"後端\"\u003e後端\u003c/h2\u003e\n\u003cp\u003e在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 \u003ca href=\"https://nodejs.org/en/\"\u003enode.js\u003c/a\u003e 與 \u003ca href=\"https://www.mongodb.com/\"\u003eMongoDB\u003c/a\u003e、找到了大家推薦的 \u003ca href=\"https://nodejs.org/en/\"\u003enode.js\u003c/a\u003e web framework -- \u003ca href=\"https://expressjs.com/zh-tw/\"\u003eexpressjs\u003c/a\u003e。開始做一些簡單的 Project，並學習 Rest API 的開發方法。\u003c/p\u003e\n\u003cp\u003e會了簡單的 Server rest API 開發後，\u0008碰上了 Single Page App(spa) 的熱潮。有了學習前端 Framework 的念頭\u003c/p\u003e\n\u003ch2 id=\"前端-framework\"\u003e前端 Framework\u003c/h2\u003e\n\u003cp\u003e著名的 SPA Framework \u0008有 \u003ca href=\"https://angular.io/\"\u003eAngular\u003c/a\u003e、\u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e 與後來的 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e。而一開始選擇接觸的 Framework 是 \u003ca href=\"https://angular.io/\"\u003eAngular\u003c/a\u003e，但第一版的 \u003ca href=\"https://angular.io/\"\u003eAngular\u003c/a\u003e\u0008 有著效能上的問題，還有不知道為什麼 \u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e 在台灣就是比較紅，考慮到之後找工作的需求，所以過沒多久就棄坑轉向 \u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e。\u0008\u003c/p\u003e\n\u003cp\u003e其實在出社會找工作前，找了一個寫 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e 與後端的實習，但我在那個實習當中主要是處理後端 API，並不是主要開發 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e，只有稍微幫忙修復一點前端 Bug 與調整樣式，對 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e 的整個操作，並不是說非常熟悉，所以後續就不再贅述 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e 了，避免講了錯誤的內容。\u003c/p\u003e\n\u003cp\u003e不管是 \u003ca href=\"https://angular.io/\"\u003eAngular\u003c/a\u003e、\u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e 或 \u003ca href=\"https://vuejs.org/\"\u003eVue\u003c/a\u003e，網路上的學習資源都很多，官方網站的教學文件也很完整，Stackoverflow 等社群平台，也有很高的熱度，基本上遇到問題，都可以很輕易的找到解答，所以三者都是可以嘗試與投資學習的工具。\u003c/p\u003e\n\u003cp\u003e說到學習 \u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e，我的學習方法大概就是不斷的找網路上的資源，例如：\u003ca href=\"https://github.com/enaqx/awesome-react\"\u003eawesome-react\u003c/a\u003e、YouTube 影片\u0008\u0008\u0008等等。稍微提一下我覺得幾個做 \u003ca href=\"https://zh-hant.reactjs.org/\"\u003eReact\u003c/a\u003e 開發上比較重要的 Package:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\"https://create-react-app.dev/\"\u003eCreate-react-app\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://redux.js.org/\"\u003eredux\u003c/a\u003e, \u003ca href=\"https://react-redux.js.org/introduction/quick-start\"\u003ereact-redux\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://reacttraining.com/react-router/\"\u003ereact-router\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://www.styled-components.com/\"\u003estyled-components\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e這幾個工具在公司裡面的 React Project 都有用到，非常推薦花時間去研究與使用。\u003c/p\u003e\n\u003cp\u003e除了以上，比較共通性的 Package，也蠻推薦使用一些 component library:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\"https://material-ui.com/\"\u003ematerial-ui\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://ant.design/docs/react/introduce\"\u003eant-design\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://jaredpalmer.com/formik/docs/overview\"\u003eformik\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e使用了 component library 可以大幅減少自己刻 component 與開發的時間。\u003c/p\u003e\n\u003cp\u003e之後在工作上，基本上就是使用上述的 Package 與 Library 做開發。而開始工作之後，發現雖然個人實作的能力很重要，但很多功能不是自己一個人可以短時間完成的，需要與同事合作開發，才可以完成目標。這時候 coding style 與 code quality 就顯得格外重要，不僅是要看懂別人的 code，也要想辦法讓自己的 code 可以好讀、好懂。\u003c/p\u003e\n\u003ch2 id=\"code-quality\"\u003eCode Quality\u003c/h2\u003e\n\u003cp\u003e首先先介紹幾個關於 coding style 的文件:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/ryanmcdermott/clean-code-javascript\"\u003eclean-code-javascript\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://standardjs.com/rules.html\"\u003ejs standard\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/airbnb/javascript\"\u003eairbnb stlye guide\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e建議可以按照順序看下來，他們的文件分別從短到長，先從簡短的開始吸收比較有動力與成就感。我自已看完之後，是覺得有很多收穫，讓我在寫 code 的時候可以比較有自信，不用一直煩惱到底怎麼寫比較乾淨，怎麼寫別人才看得懂，不僅加快了開發速度，同事間溝通也快速許多。\u003c/p\u003e\n\u003cp\u003e\u0008但總是有疏忽與不小心寫錯 code 或者是發懶覺得「也不過就是少了幾個空白沒什麼關係吧」的時候，你需要的是 \u003ca href=\"https://eslint.org/\"\u003eeslint\u003c/a\u003e 幫忙自動修改你的 code 去符合 Project 設定的 coding style。\u003c/p\u003e\n\u003cp\u003e\u0008在工作一年後，深深的體驗到 coding style 這種東西絕對不是可有可無，沒有儘早制定良好的 coding style 制度，就只會不斷累積技術債，讓後來的維運變得困難。\u003c/p\u003e\n\u003ch2 id=\"結語\"\u003e結語\u003c/h2\u003e\n\u003cp\u003e這大概就是我從開始學習程式到現在工作一年所經歷的一些心得，希望看到的人可以得到幫助。主要寫這篇的目的還是紀錄一下過去學習到的東西，也算是對在過去這些日子的自己有一個交代。\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">全端工程師工作的第一年</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">作為全端工程師也過了一年，想記錄一下從學生時期到工作的心路歷程。</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2019-12-09T09:32:46Z">Dec 9, 2019</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<h2 id="大學時期">大學時期</h2>
+<p>我大學念的是土木工程系，是個傳統的工程學系。基本上，土木的出路大概就是考技師去營造廠、顧問公司或是當公務人員，而在我讀書時，已經確定自己未來不會想走這些路，於是在大三、大四必修課比較少的時候，跑去資工系修了不少課，奠定了未來走向全端工程師的基礎。</p>
+<h2 id="程式基礎">程式基礎</h2>
+<p>跑到資工系修課，學到最多的或許不是上課內容，而是實作能力與尋找解決問題方法的能力。在資訊工程這個領域裡面，很多知識不是課本上或學校會教的。</p>
+<p>科技發展速度太快了，尤其是在最貼近科技的軟體業當中，就像在這幾年當紅的機器學習，想當初還覺得 CNN 可以做 Object Detection 分辨出不同物體好驚奇，到現在已經可以做 AI 換臉換到人都辨識不出來的程度。每年都有新的技術需要學習，才跟的上時代，所以學校課程只能教最基礎的演算法、資料結構等等，只有這些基礎知識才夠廣泛，不管在哪個資訊領域都需要用到。</p>
+<p>至於解決問題的實作能力，只能靠自己學習、自己去尋找資源、自己去看開發文件。所以資工系才會有很多實作的課程，培養自學的能力。</p>
+<p>我就是在這個時期開始接觸並且自學<strong>前端</strong>開發。</p>
+<h2 id="前端">前端</h2>
+<p>最初找到的教學資源是 <a href="https://www.w3schools.com/">w3school</a>，<a href="https://www.w3schools.com/">w3school</a> 好用的地方在於，他解釋一個 syntax 的用法後馬上有範例與測試環境可以讓你嘗試，不斷的練習讓你直接將程式寫法直接刻在腦袋裡。</p>
+<p>在 <a href="https://www.w3schools.com/">w3school</a> 看完 html、css、js 的基礎之後，就開始自己嘗試做一點小 project，刻一些簡單的畫面。</p>
+<p>在實作過程中，找到了可以加快開發速度的工具 -- <a href="https://emmet.io/">emmet</a>，用了之後才認知到開發工具的重要，好用的編輯器與插件讓開發起來快了不只 10 倍。</p>
+<p><img src="https://code.visualstudio.com/assets/docs/editor/emmet/emmet.gif" alt="emmet gif from https://code.visualstudio.com/docs/editor/emmet"></p>
+<p>隨著對前端開發的熟悉，開始嘗試去接一點 Case 與 Project 來做，也因此有了對 server 的需求。</p>
+<h2 id="後端">後端</h2>
+<p>在接觸後端的時間點，剛好是 javascript 正快速成長的時期，也因為的關係對 javascript 較為熟悉，所以自然而然的學了當下最熱門的 <a href="https://nodejs.org/en/">node.js</a> 與 <a href="https://www.mongodb.com/">MongoDB</a>、找到了大家推薦的 <a href="https://nodejs.org/en/">node.js</a> web framework -- <a href="https://expressjs.com/zh-tw/">expressjs</a>。開始做一些簡單的 Project，並學習 Rest API 的開發方法。</p>
+<p>會了簡單的 Server rest API 開發後，碰上了 Single Page App(spa) 的熱潮。有了學習前端 Framework 的念頭</p>
+<h2 id="前端-framework">前端 Framework</h2>
+<p>著名的 SPA Framework 有 <a href="https://angular.io/">Angular</a>、<a href="https://zh-hant.reactjs.org/">React</a> 與後來的 <a href="https://vuejs.org/">Vue</a>。而一開始選擇接觸的 Framework 是 <a href="https://angular.io/">Angular</a>，但第一版的 <a href="https://angular.io/">Angular</a> 有著效能上的問題，還有不知道為什麼 <a href="https://zh-hant.reactjs.org/">React</a> 在台灣就是比較紅，考慮到之後找工作的需求，所以過沒多久就棄坑轉向 <a href="https://zh-hant.reactjs.org/">React</a>。</p>
+<p>其實在出社會找工作前，找了一個寫 <a href="https://vuejs.org/">Vue</a> 與後端的實習，但我在那個實習當中主要是處理後端 API，並不是主要開發 <a href="https://vuejs.org/">Vue</a>，只有稍微幫忙修復一點前端 Bug 與調整樣式，對 <a href="https://vuejs.org/">Vue</a> 的整個操作，並不是說非常熟悉，所以後續就不再贅述 <a href="https://vuejs.org/">Vue</a> 了，避免講了錯誤的內容。</p>
+<p>不管是 <a href="https://angular.io/">Angular</a>、<a href="https://zh-hant.reactjs.org/">React</a> 或 <a href="https://vuejs.org/">Vue</a>，網路上的學習資源都很多，官方網站的教學文件也很完整，Stackoverflow 等社群平台，也有很高的熱度，基本上遇到問題，都可以很輕易的找到解答，所以三者都是可以嘗試與投資學習的工具。</p>
+<p>說到學習 <a href="https://zh-hant.reactjs.org/">React</a>，我的學習方法大概就是不斷的找網路上的資源，例如：<a href="https://github.com/enaqx/awesome-react">awesome-react</a>、YouTube 影片等等。稍微提一下我覺得幾個做 <a href="https://zh-hant.reactjs.org/">React</a> 開發上比較重要的 Package:</p>
+<ol>
+<li><a href="https://create-react-app.dev/">Create-react-app</a></li>
+<li><a href="https://redux.js.org/">redux</a>, <a href="https://react-redux.js.org/introduction/quick-start">react-redux</a></li>
+<li><a href="https://reacttraining.com/react-router/">react-router</a></li>
+<li><a href="https://www.styled-components.com/">styled-components</a></li>
+</ol>
+<p>這幾個工具在公司裡面的 React Project 都有用到，非常推薦花時間去研究與使用。</p>
+<p>除了以上，比較共通性的 Package，也蠻推薦使用一些 component library:</p>
+<ol>
+<li><a href="https://material-ui.com/">material-ui</a></li>
+<li><a href="https://ant.design/docs/react/introduce">ant-design</a></li>
+<li><a href="https://jaredpalmer.com/formik/docs/overview">formik</a></li>
+</ol>
+<p>使用了 component library 可以大幅減少自己刻 component 與開發的時間。</p>
+<p>之後在工作上，基本上就是使用上述的 Package 與 Library 做開發。而開始工作之後，發現雖然個人實作的能力很重要，但很多功能不是自己一個人可以短時間完成的，需要與同事合作開發，才可以完成目標。這時候 coding style 與 code quality 就顯得格外重要，不僅是要看懂別人的 code，也要想辦法讓自己的 code 可以好讀、好懂。</p>
+<h2 id="code-quality">Code Quality</h2>
+<p>首先先介紹幾個關於 coding style 的文件:</p>
+<ol>
+<li><a href="https://github.com/ryanmcdermott/clean-code-javascript">clean-code-javascript</a></li>
+<li><a href="https://standardjs.com/rules.html">js standard</a></li>
+<li><a href="https://github.com/airbnb/javascript">airbnb stlye guide</a></li>
+</ol>
+<p>建議可以按照順序看下來，他們的文件分別從短到長，先從簡短的開始吸收比較有動力與成就感。我自已看完之後，是覺得有很多收穫，讓我在寫 code 的時候可以比較有自信，不用一直煩惱到底怎麼寫比較乾淨，怎麼寫別人才看得懂，不僅加快了開發速度，同事間溝通也快速許多。</p>
+<p>但總是有疏忽與不小心寫錯 code 或者是發懶覺得「也不過就是少了幾個空白沒什麼關係吧」的時候，你需要的是 <a href="https://eslint.org/">eslint</a> 幫忙自動修改你的 code 去符合 Project 設定的 coding style。</p>
+<p>在工作一年後，深深的體驗到 coding style 這種東西絕對不是可有可無，沒有儘早制定良好的 coding style 制度，就只會不斷累積技術債，讓後來的維運變得困難。</p>
+<h2 id="結語">結語</h2>
+<p>這大概就是我從開始學習程式到現在工作一年所經歷的一些心得，希望看到的人可以得到幫助。主要寫這篇的目的還是紀錄一下過去學習到的東西，也算是對在過去這些日子的自己有一個交代。</p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

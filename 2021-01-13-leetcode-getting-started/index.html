@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2021-01-13-leetcode-getting-started/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>Leetcode 起手式 Leetcode Getting Started : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="Leetcode 起手式 Leetcode Getting Started">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2021-01-13-leetcode-getting-started/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="Leetcode 介紹 Leetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。 Leetcode 截止 2021/01 有1700&#43; 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。 至於可以怎麼挑呢？ https://leetcode.com/list/xoqag3yj/ 有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。 接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。 好用的工具 最近幾年 microsoft 出的文字編輯器 visual studio code(VS code) 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。">
+<meta name="description" content="Leetcode 介紹 Leetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。 Leetcode 截止 2021/01 有1700&#43; 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。 至於可以怎麼挑呢？ https://leetcode.com/list/xoqag3yj/ 有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。 接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。 好用的工具 最近幾年 microsoft 出的文字編輯器 visual studio code(VS code) 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。">
+<meta property="og:updated_time" content="2021-01-12T14:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2021-01-12T14:00:00Z">
+<meta property="article:modified_time" content="2021-01-12T14:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Leetcode 起手式 Leetcode Getting Started",
+  "alternativeHeadline": "介紹 Leetcode 該如何開始刷題與 Visual Studio Code 上好用的工具",
+  "url": "https://aaronjen.github.io/2021-01-13-leetcode-getting-started/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2021-01-13-leetcode-getting-started/"
+  },
+  "description": "Leetcode 介紹 Leetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。 Leetcode 截止 2021/01 有1700+ 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。 至於可以怎麼挑呢？ https://leetcode.com/list/xoqag3yj/ 有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。 接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。 好用的工具 最近幾年 microsoft 出的文字編輯器 visual studio code(VS code) 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2021-01-12T14:00:00Z",
+  "dateModified": "2021-01-12T14:00:00Z",
+  "articleBody": "\u003ch2 id=\"leetcode-介紹\"\u003eLeetcode 介紹\u003c/h2\u003e\n\u003cp\u003eLeetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。\u003c/p\u003e\n\u003cp\u003eLeetcode 截止 2021/01 有1700+ 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。\u003c/p\u003e\n\u003cp\u003e至於可以怎麼挑呢？\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://leetcode.com/list/xoqag3yj/\"\u003ehttps://leetcode.com/list/xoqag3yj/\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。\u003c/p\u003e\n\u003cp\u003e接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。\u003c/p\u003e\n\u003ch2 id=\"好用的工具\"\u003e好用的工具\u003c/h2\u003e\n\u003cp\u003e最近幾年 microsoft 出的文字編輯器 \u003ca href=\"https://code.visualstudio.com/\"\u003evisual studio code(VS code)\u003c/a\u003e 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode\"\u003ehttps://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e這個工具可以讓你在 VS code 上面寫 Leetcode 的題目，讓你享受 IDE 的 autocomplete 又可以幫你上傳到 Leetcode server 判斷程式是否正確。除此之外，source code 因為存在本地端，所以要怎麼整理、要做 Git 管控等等，都十分的方便。\u003c/p\u003e\n\u003cp\u003e安裝的方式，就參考 VS code 的官網，基本上跟一般的 extension 一樣透過 extension manager 就可以安裝好。\u003c/p\u003e\n\u003cp\u003e比較特別的是，因為這個 extension 要幫你上傳 source code 到 Leetcode 的 judge system，來判斷程式的正確，所以必須要登入自己的 Leetcode 帳號。有些人可能會有資安的疑慮，但這個 extension 是 open source 的 extension，使用人數也很多，如果真的有問題的話，應該會有不少人反應問題。\u003c/p\u003e\n\u003ch2 id=\"用-go-刷題時的配置\"\u003e用 Go 刷題時的配置\u003c/h2\u003e\n\u003cp\u003e因為自己剛開始學 Go，所以就用 Go 來刷題，順便熟悉 Go 的語法。不得不說，刷題在參考別人寫的 code 時，常常可以發覺一些好用、易懂的寫法，可以藉此來加強語法的熟悉度。\u003c/p\u003e\n\u003cp\u003e在用 Go 刷題時，最重要的是資料夾結構，因為 Go 是用資料夾來分 package 的，所以在同一層資料夾的檔案，必定屬於相同 package。這時就會出現不同的題目用到相同的 function 名稱導致衝突。雖然不影響上傳結果，但會影響 IDE 的 autocomplete 運作，寫題目寫起來就會比較不順。所以還是每道題目都分開不同的資料夾比較方便管理，也比較美觀。\u003c/p\u003e\n\u003cp\u003e但要自己將每一道題目都分資料夾，真的也是很麻煩，還好 Leetcode 的 extension 可以做一些設定來自動完成這件事情。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File\"\u003ehttps://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"highlight\"\u003e\u003cpre class=\"chroma\"\u003e\u003ccode class=\"language-json\" data-lang=\"json\"\u003e\u003cspan class=\"s2\"\u003e\u0026#34;leetcode.filePath\u0026#34;\u003c/span\u003e\u003cspan class=\"err\"\u003e:\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n    \u003cspan class=\"nt\"\u003e\u0026#34;golang\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e\n        \u003cspan class=\"nt\"\u003e\u0026#34;folder\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"s2\"\u003e\u0026#34;\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e\n        \u003cspan class=\"nt\"\u003e\u0026#34;filename\u0026#34;\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"s2\"\u003e\u0026#34;${id}.${kebab-case-name}/main.${ext}\u0026#34;\u003c/span\u003e\n    \u003cspan class=\"p\"\u003e}\u003c/span\u003e\n\u003cspan class=\"p\"\u003e}\u003c/span\u003e\u003cspan class=\"err\"\u003e,\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003e只要將 filename 的名稱組好，在 fetch 新題目時，VS code 就會自動將檔案分資料夾存好，這樣就不會互相影響各自的 function 名稱了。\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/jhyeWu8.png\" alt=\"folder-structure\"\u003e\u003c/p\u003e\n\u003cp\u003eReference:\u003c/p\u003e\n\u003cp\u003ePTT 心得： \u003ca href=\"https://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho\"\u003ehttps://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eVscode-leetcode： \u003ca href=\"https://github.com/LeetCode-OpenSource/vscode-leetcode\"\u003ehttps://github.com/LeetCode-OpenSource/vscode-leetcode\u003c/a\u003e\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">Leetcode 起手式 Leetcode Getting Started</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">介紹 Leetcode 該如何開始刷題與 Visual Studio Code 上好用的工具</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2021-01-12T14:00:00Z">Jan 12, 2021</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<h2 id="leetcode-介紹">Leetcode 介紹</h2>
+<p>Leetcode 是許多人練習演算法的地方，至於為什麼要練習演算法呢？當然是因為想找到好工作。大公司例如：Facebook、Google，都十分喜歡考演算法的題目。對他們來說你會什麼前端工具、後端框架不是很重要，這些東西進去再學就好，但演算法卻是軟體工作不管做什麼都需要的基礎。</p>
+<p>Leetcode 截止 2021/01 有1700+ 道題目，這個數量非常的多。一般人剛開始刷題目，一道題目可能就要寫個一小時，甚至一個下午，要全部刷完 1700 道題目根本不太實際，也很沒有效率，所以就需要挑選一些重要的題目出來刷。</p>
+<p>至於可以怎麼挑呢？</p>
+<p><a href="https://leetcode.com/list/xoqag3yj/">https://leetcode.com/list/xoqag3yj/</a></p>
+<p>有人在 Blind 這個網站整理出一組 75 題的題目列表，據說是 Google 或是 Facebook 的工程師整理出來的，涵蓋許多不同的演算法。這組題目可以當作刷題的基礎，只要認真刷完，應該會對刷題比較有感覺，至少比較不會有一看到題目完全沒想法的情況。</p>
+<p>接下來，就可以刷 Leetcode 整理出來的 Top Liked 或是 Top Interview 題目，或是找其他人推薦的題目，基本上盡量刷 medium 的題目，因為 easy 常常太過簡單，而 hard 又太過困難，一題可能要刷個一天，實力不足時太沒有效率。</p>
+<h2 id="好用的工具">好用的工具</h2>
+<p>最近幾年 microsoft 出的文字編輯器 <a href="https://code.visualstudio.com/">visual studio code(VS code)</a> 非常熱門，有很大的社群，其中就人寫出好用的 Leetcode extension。</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode">https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode</a></p>
+<p>這個工具可以讓你在 VS code 上面寫 Leetcode 的題目，讓你享受 IDE 的 autocomplete 又可以幫你上傳到 Leetcode server 判斷程式是否正確。除此之外，source code 因為存在本地端，所以要怎麼整理、要做 Git 管控等等，都十分的方便。</p>
+<p>安裝的方式，就參考 VS code 的官網，基本上跟一般的 extension 一樣透過 extension manager 就可以安裝好。</p>
+<p>比較特別的是，因為這個 extension 要幫你上傳 source code 到 Leetcode 的 judge system，來判斷程式的正確，所以必須要登入自己的 Leetcode 帳號。有些人可能會有資安的疑慮，但這個 extension 是 open source 的 extension，使用人數也很多，如果真的有問題的話，應該會有不少人反應問題。</p>
+<h2 id="用-go-刷題時的配置">用 Go 刷題時的配置</h2>
+<p>因為自己剛開始學 Go，所以就用 Go 來刷題，順便熟悉 Go 的語法。不得不說，刷題在參考別人寫的 code 時，常常可以發覺一些好用、易懂的寫法，可以藉此來加強語法的熟悉度。</p>
+<p>在用 Go 刷題時，最重要的是資料夾結構，因為 Go 是用資料夾來分 package 的，所以在同一層資料夾的檔案，必定屬於相同 package。這時就會出現不同的題目用到相同的 function 名稱導致衝突。雖然不影響上傳結果，但會影響 IDE 的 autocomplete 運作，寫題目寫起來就會比較不順。所以還是每道題目都分開不同的資料夾比較方便管理，也比較美觀。</p>
+<p>但要自己將每一道題目都分資料夾，真的也是很麻煩，還好 Leetcode 的 extension 可以做一些設定來自動完成這件事情。</p>
+<p><a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File">https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Customize-the-Relative-Folder-and-the-File-Name-of-the-Problem-File</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;leetcode.filePath&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;golang&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;folder&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;filename&#34;</span><span class="p">:</span> <span class="s2">&#34;${id}.${kebab-case-name}/main.${ext}&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></div><p>只要將 filename 的名稱組好，在 fetch 新題目時，VS code 就會自動將檔案分資料夾存好，這樣就不會互相影響各自的 function 名稱了。</p>
+<p><img src="https://i.imgur.com/jhyeWu8.png" alt="folder-structure"></p>
+<p>Reference:</p>
+<p>PTT 心得： <a href="https://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho">https://www.ptt.cc/bbs/Soft_Job/M.1605589986.A.CBA.html?fbclid=IwAR3beSBfigjWcfJmyAttPjGHP6j7w8vLjSLPt0U5xATlaRAMmXentxADdho</a></p>
+<p>Vscode-leetcode： <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode">https://github.com/LeetCode-OpenSource/vscode-leetcode</a></p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

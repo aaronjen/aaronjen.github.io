@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+Disallow: /privacy/
+
+Sitemap: https://aaronjen.github.io/sitemap.xml

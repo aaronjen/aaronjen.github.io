@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2020-08-29-sec-note/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>資安筆記 : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="資安筆記">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2020-08-29-sec-note/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="內容：  IoT 等硬體設備的資安問題 公司該如何有效管理資安問題 資安的成本考量與取捨 資安認證 server 需要注意防範的地方 Shift Left 降低成本  IoT 等設備常見的問題： 出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。 公司該如何有效管理資安問題： 公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。 此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。 資安的成本考量與取捨： 資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。 資安認證： 資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 HIPAA。 事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。 Server 實際該防範且注意的地方：  server 服務的漏洞，ex: AWS S3 information leak、SSRF 取得 K8S 權限 使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie Data Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection.">
+<meta name="description" content="內容：  IoT 等硬體設備的資安問題 公司該如何有效管理資安問題 資安的成本考量與取捨 資安認證 server 需要注意防範的地方 Shift Left 降低成本  IoT 等設備常見的問題： 出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。 公司該如何有效管理資安問題： 公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。 此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。 資安的成本考量與取捨： 資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。 資安認證： 資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 HIPAA。 事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。 Server 實際該防範且注意的地方：  server 服務的漏洞，ex: AWS S3 information leak、SSRF 取得 K8S 權限 使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie Data Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection.">
+<meta property="og:updated_time" content="2020-08-29T06:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2020-08-29T06:00:00Z">
+<meta property="article:modified_time" content="2020-08-29T06:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "資安筆記",
+  "alternativeHeadline": "單純記錄資安課程筆記，非專業分享，如須參考請自行斟酌",
+  "url": "https://aaronjen.github.io/2020-08-29-sec-note/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2020-08-29-sec-note/"
+  },
+  "description": "內容：  IoT 等硬體設備的資安問題 公司該如何有效管理資安問題 資安的成本考量與取捨 資安認證 server 需要注意防範的地方 Shift Left 降低成本  IoT 等設備常見的問題： 出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。 公司該如何有效管理資安問題： 公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。 此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。 資安的成本考量與取捨： 資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。 資安認證： 資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 HIPAA。 事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。 Server 實際該防範且注意的地方：  server 服務的漏洞，ex: AWS S3 information leak、SSRF 取得 K8S 權限 使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie Data Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection.",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2020-08-29T06:00:00Z",
+  "dateModified": "2020-08-29T06:00:00Z",
+  "articleBody": "\u003ch3 id=\"內容\"\u003e內容：\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003eIoT 等硬體設備的資安問題\u003c/li\u003e\n\u003cli\u003e公司該如何有效管理資安問題\u003c/li\u003e\n\u003cli\u003e資安的成本考量與取捨\u003c/li\u003e\n\u003cli\u003e資安認證\u003c/li\u003e\n\u003cli\u003eserver 需要注意防範的地方\u003c/li\u003e\n\u003cli\u003eShift Left 降低成本\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"iot-等設備常見的問題\"\u003eIoT 等設備常見的問題：\u003c/h3\u003e\n\u003cp\u003e出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。\u003c/p\u003e\n\u003ch3 id=\"公司該如何有效管理資安問題\"\u003e公司該如何有效管理資安問題：\u003c/h3\u003e\n\u003cp\u003e公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。\n此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。\u003c/p\u003e\n\u003ch3 id=\"資安的成本考量與取捨\"\u003e資安的成本考量與取捨：\u003c/h3\u003e\n\u003cp\u003e資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。\u003c/p\u003e\n\u003ch3 id=\"資安認證\"\u003e資安認證：\u003c/h3\u003e\n\u003cp\u003e資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 \u003ca href=\"https://aws.amazon.com/tw/compliance/hipaa-compliance/\"\u003eHIPAA\u003c/a\u003e。\n事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。\u003c/p\u003e\n\u003ch3 id=\"server-實際該防範且注意的地方\"\u003eServer 實際該防範且注意的地方：\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003eserver 服務的漏洞，ex: \u003ca href=\"https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/unsecured-aws-s3-bucket-found-leaking-data-of-over-30k-cannabis-dispensary-customers\"\u003eAWS S3 information leak\u003c/a\u003e、SSRF 取得 K8S 權限\u003c/li\u003e\n\u003cli\u003e使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie\u003c/li\u003e\n\u003cli\u003eData Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection... 等攻擊\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"shift-left\"\u003eShift Left:\u003c/h3\u003e\n\u003cp\u003eShift Left，是減少資安成本的方式，觀念是如果能儘早建立資安相關的措施與架構，就可以減少系統大量修改的可能。\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e定期檢討程式碼及早發現漏洞\u003c/li\u003e\n\u003cli\u003e建立自動化流程持續檢測程式碼\u003c/li\u003e\n\u003cli\u003e越早開始成本越低\u003c/li\u003e\n\u003c/ol\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">資安筆記</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">單純記錄資安課程筆記，非專業分享，如須參考請自行斟酌</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2020-08-29T06:00:00Z">Aug 29, 2020</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<h3 id="內容">內容：</h3>
+<ol>
+<li>IoT 等硬體設備的資安問題</li>
+<li>公司該如何有效管理資安問題</li>
+<li>資安的成本考量與取捨</li>
+<li>資安認證</li>
+<li>server 需要注意防範的地方</li>
+<li>Shift Left 降低成本</li>
+</ol>
+<h3 id="iot-等設備常見的問題">IoT 等設備常見的問題：</h3>
+<p>出場時有通用的預設密碼，例如 Wifi 設備常常會有預設的管理帳號和密碼，並且同個廠商的設備會有一樣的設定，當網路管理者沒有更改設定，就會讓人有機可趁，是個常見的漏洞。</p>
+<h3 id="公司該如何有效管理資安問題">公司該如何有效管理資安問題：</h3>
+<p>公司人員都該有基本的資安觀念，如果只有少數人有資安觀念，會發生工程師花了一堆力氣做好資安防護，結果其他人直接把密碼寫在網路上，這樣不管資安防護做的在好都沒有用。
+此外，公司也應該設立必須負責的資安官，必須要有人負責才會有效的建立好資安防護措施，不然當資安問題發生時，大家會互相推卸責任，平時也不會有人認真盯。</p>
+<h3 id="資安的成本考量與取捨">資安的成本考量與取捨：</h3>
+<p>資安防護時需要成本的，越嚴密的防護，成本越高，且資安防護是沒有上限的，不管防護做得多嚴密還是會有漏洞，所以要考慮好資料的重要程度，重要的資料就用成本較高的防護，反之亦然。</p>
+<h3 id="資安認證">資安認證：</h3>
+<p>資安是沒有上限的，所以會有不知道該做到什麼程度的問題。這時就可以考慮相關的資安認證，例如：醫療就可以考慮認證 <a href="https://aws.amazon.com/tw/compliance/hipaa-compliance/">HIPAA</a>。
+事實上許多先進國家，為了保障使用者的資料，也會要求廠商必須有相關的認證才能販售服務。</p>
+<h3 id="server-實際該防範且注意的地方">Server 實際該防範且注意的地方：</h3>
+<ol>
+<li>server 服務的漏洞，ex: <a href="https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/unsecured-aws-s3-bucket-found-leaking-data-of-over-30k-cannabis-dispensary-customers">AWS S3 information leak</a>、SSRF 取得 K8S 權限</li>
+<li>使用的 library 是否有漏洞或是惡意代碼。ex: NPM modules (getcookies) 方便使用但其實有埋惡意代碼取得使用者 cookie</li>
+<li>Data Validation，不完善的 Data Validation 可以讓人有機會做 SQL injection... 等攻擊</li>
+</ol>
+<h3 id="shift-left">Shift Left:</h3>
+<p>Shift Left，是減少資安成本的方式，觀念是如果能儘早建立資安相關的措施與架構，就可以減少系統大量修改的可能。</p>
+<ol>
+<li>定期檢討程式碼及早發現漏洞</li>
+<li>建立自動化流程持續檢測程式碼</li>
+<li>越早開始成本越低</li>
+</ol>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>

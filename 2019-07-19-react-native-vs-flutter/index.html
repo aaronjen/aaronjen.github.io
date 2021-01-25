@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-tw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="hugo-theme" content="Axiom 0.7.1">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/brand/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/image/brand/icon-1-1.png">
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"></link>
+  <link rel="canonical" href="https://aaronjen.github.io/2019-07-19-react-native-vs-flutter/">
+<link rel="preload" as="style" href="/bundle.css?v=1611547495" media="all">
+<link rel="stylesheet" href="/bundle.css?v=1611547495" media="all">
+<style>.cdata pre{color:#edf2f7;background-color:#2d3748}.cdata :not(pre)>code{color:#805ad5;background-color:#f7fafc}.chroma .err{color:#fed7d7;background-color:#9b2c2c}.chroma .hl{background-color:#4a5568}.chroma .ln{color:#a0aec0}.chroma .k,.chroma .kc,.chroma .kd,.chroma .kn,.chroma .kp,.chroma .kr{color:#63b3ed}.chroma .kt{color:#b794f4}.chroma .na{color:#f6e05e}.chroma .nb{color:#f6ad55}.chroma .nc{color:#fc8181}.chroma .no{color:#68d391}.chroma .nd{color:#fc8181}.chroma .ne{color:#fc8181}.chroma .nf{color:#f6ad55}.chroma .nt{color:#fc8181}.chroma .l{color:#b794f4}.chroma .dl,.chroma .ld,.chroma .s,.chroma .s2,.chroma .sa,.chroma .sb,.chroma .sc,.chroma .sd{color:#68d391}.chroma .se{color:#a0aec0}.chroma .s1,.chroma .sh,.chroma .si,.chroma .sr,.chroma .ss,.chroma .sx{color:#68d391}.chroma .il,.chroma .m,.chroma .mb,.chroma .mf,.chroma .mh,.chroma .mi,.chroma .mo{color:#b794f4}.chroma .o,.chroma .ow{color:#90cdf4}.chroma .p{color:#cbd5e0}.chroma .c,.chroma .c1,.chroma .ch,.chroma .cm,.chroma .cp,.chroma .cpf,.chroma .cs{color:#a0aec0}.chroma .ge{font-style:italic}.chroma .gs{font-weight:700}</style>
+
+
+
+<title>React Native &amp; Flutter 簡單比較 : Aaron Jen&#39;s Blog</title>
+
+<meta property="og:title" content="React Native &amp; Flutter 簡單比較">
+<meta property="og:site_name" content="Aaron Jen&#39;s Blog">
+<meta property="og:url" content="https://aaronjen.github.io/2019-07-19-react-native-vs-flutter/">
+<link rel="image_src" href="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image" content="https://aaronjen.github.io/image/page-default.webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:description" content="在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論  先歸納一些總結： 效能方面：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。 開發工具：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。 元件與API：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。 社群人數：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。  在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。">
+<meta name="description" content="在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論  先歸納一些總結： 效能方面：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。 開發工具：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。 元件與API：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。 社群人數：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。  在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。">
+<meta property="og:updated_time" content="2019-07-19T12:00:00Z">
+<meta property="fb:app_id" content="">
+<meta name="author" content="Aaron Jen">
+<meta property="article:author" content="https://aaronjen.github.io/">
+<meta property="article:published_time" content="2019-07-19T12:00:00Z">
+<meta property="article:modified_time" content="2019-07-19T12:00:00Z">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "React Native \u0026 Flutter 簡單比較",
+  "alternativeHeadline": "在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論",
+  "url": "https://aaronjen.github.io/2019-07-19-react-native-vs-flutter/",
+  "image": "https://aaronjen.github.io/image/page-default.webp",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aaronjen.github.io/2019-07-19-react-native-vs-flutter/"
+  },
+  "description": "在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論  先歸納一些總結： 效能方面：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。 開發工具：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。 元件與API：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。 社群人數：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。  在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。",
+  "author": {
+    "@type": "Person",
+    "name": "Aaron Jen"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aaron Jen's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aaronjen.github.io/image/brand/icon-1-1.png"
+    }
+  },
+  "datePublished": "2019-07-19T12:00:00Z",
+  "dateModified": "2019-07-19T12:00:00Z",
+  "articleBody": "\u003cp\u003e\u003cstrong\u003e在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論\u003c/strong\u003e\u003c/p\u003e\n\u003chr\u003e\n\u003cp\u003e\u003cstrong\u003e先歸納一些總結\u003c/strong\u003e：\u003cbr\u003e\n\u003cstrong\u003e效能方面\u003c/strong\u003e：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。\u003cbr\u003e\n\u003cstrong\u003e開發工具\u003c/strong\u003e：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。\u003cbr\u003e\n\u003cstrong\u003e元件與API\u003c/strong\u003e：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。\u003cbr\u003e\n\u003cstrong\u003e社群人數\u003c/strong\u003e：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。\u003c/p\u003e\n\u003chr\u003e\n\u003cp\u003e在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"https://i.imgur.com/Ebi7Qun.png\" alt=\"RNvsFlutter\"\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e效能比較：\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eAPP 的效能就程式架構來說，Flutter 有經過 c/c++ compile 理論上是會勝過 React native，但網路上有文章說兩者的效能其實是差不多的，這個部分有興趣可以做點實驗來研究，\u003cstrong\u003e重點是兩者的效能都很不錯，都是真正可以產品化的技術。\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e開發工具：\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e兩者的開發工具都有支援 Live reload 可以讓你改文 code 後儲存馬上就反應，所以開發起來都很快速順暢，但 Flutter 又更厲害一點，因為他可以保持目前的狀態(詳情請看 \u003ca href=\"https://flutter.dev/\"\u003eFlutter 官方網站\u003c/a\u003e)。\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e元件與API：\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e這個部分就是React native 大勝，畢竟發展的歷史比起 Flutter 長了許多，累積了不少好用的元件與API (ex: Image Picker、Photo library api)，雖然兩者都可以透過實作 native language api 的方式來完成所有平台可以做到的事情，但有現成且好用的元件就大大減少了許多需要自行處理的問題。\u003cstrong\u003e如果是想要 prototype 或是產品有迫切的時程壓力可能就要好好比較一下關鍵的元件是否缺失。\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e社群人數：\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eReact native 有較長的歷史，留下的痕跡絕對是比 Flutter 多上許多的，所以在開發中遇到的問題，基本上 StackOverflow 都有人解答過了，省去了不少查資料翻 api 的時間。\u003c/p\u003e\n\u003chr\u003e\n\u003cp\u003e\u003cstrong\u003e最後來提一下為何會嘗試了兩個 Framework。\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e最近 side project 想做一個關於照片整理與上傳的 app，就嘗試了發展一段時間的 React native。因為有 React 的基礎所以實作起來真的很順手，直到遇到了照片上傳…。\u003c/p\u003e\n\u003cp\u003eReact native 以 javascript 為 engine，建立了 javascript 與 native language 之間的 bridge，讓開發者可以在 javascript 中就完成 app 的建置。而這個 bridge 主要是使用 JSON string 來溝通。\u003c/p\u003e\n\u003cp\u003e雖然在 Browser 跟 node 的環境都有支援 blob，但不知道為什麼 React native 的環境 blob 的支援很殘破，想要上傳檔案都只能透過 React native API 將 local file 轉成 base64 的格式，才能做後續的處理。\u003c/p\u003e\n\u003cp\u003e查了許多資料，花了好幾天的時候一直都無法克服檔案上傳的問題(因為使用的雲端上傳 API 只支援 binary 檔案上傳，base64 轉檔一直無法成功)，所以就找到了 Flutter。\u003c/p\u003e\n\u003cp\u003e在花了三天看完 Flutter 的介紹與 tutorial 後，確定 Flutter 可以解決我遇到的檔案傳輸問題後，就準備開始了移植 React native code 的工程，結果還沒開始移植就遇到了問題。\u003cstrong\u003e我沒辦法取得手機裡面的照片…\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e查了許久發現好像沒有相關的 API，所以得自己寫 native code 來取得資料，查到這裡我就放棄 Flutter 了，如果要寫 native code 就直接用 React native 就好。\u003c/p\u003e\n\u003cp\u003e在只是一個小 project 的情況下，我放棄了 Flutter 選擇回到了 API 還有元件較多的 React native，並放棄了資料上傳這件事。畢竟 React native 的 API 有支援照片存取，至少還可以寫整理相片的部分，沒有相關存取照片的 API 就算可以上傳 binary 資料也沒用，因為根本沒東西可以傳啊……\u003c/p\u003e"
+}
+</script>
+
+<link rel="preload" as="script" href="/bundle.js?v=1611547495">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://stats.g.doubleclick.net">
+<link rel="preconnect" href="https://www.googleadservices.com">
+<link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1">
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-146444315-1"></script>
+<script>
+  window.dataLayer=window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','UA-146444315-1');
+</script>
+
+</head>
+<body>
+
+  <header id="nav" class="header">
+  <div class="ax-l-i max-w-6xl">
+    <div class="ax-logo flex items-center">
+      <div class="sm:hidden inline-block p-2 cursor-pointer" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      
+        <a class="inline-block" href="/" title="Aaron Jen&#39;s Blog"><span class="font-semibold text-raven-900">Aaron Jen's Blog</span></a>
+      
+    </div>
+
+    <div class="hidden sm:inline-block flex-1"></div>
+    
+    <div class="hidden sm:inline-block">
+      <div class="ax-user">
+        
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+            All Posts
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+            General
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+            Frontend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+            Backend
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+            Tool
+          </a>
+          <a class="p-2 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+            Life
+          </a>
+      </div>
+    </div>
+  </div>
+  
+</header>
+<div class="block sm:hidden mobile-menu">
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/posts/">
+      All Posts
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/general/">
+      General
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/frontend/">
+      Frontend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/backend/">
+      Backend
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/tool/">
+      Tool
+    </a>
+    <a class="m-4 block text-base leading-none text-raven-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none" href="/category/life/">
+      Life
+    </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementsByClassName("mobile-menu")[0]
+    menu.classList.toggle("menu-active");
+  } 
+</script>
+  <main>
+<div class="default-single">
+  <div class="ax-title ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <h1 class="post-title font-content-title font-normal leading-tight tracking-default text-40">React Native &amp; Flutter 簡單比較</h1>
+      <p class="post-subtitle font-content-sans font-light text-xl text-raven-500 mt-3">在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論</p>
+
+      <div class="ax-meta flex items-center mt-5">
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center">
+  
+  <time class="text-sm text-raven-500" datetime="2019-07-19T12:00:00Z">Jul 19, 2019</time>
+</div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div><div class="ax-content ax-l-o">
+    <div class="ax-l-i max-w-680">
+      <article class="cdata">
+<p><strong>在這篇文章中不會有完整的比較，只是分享一些使用上遇到的情境與問題，文章內容單純是個人意見，有不同的想法歡迎來討論</strong></p>
+<hr>
+<p><strong>先歸納一些總結</strong>：<br>
+<strong>效能方面</strong>：Flutter 可能勝出但沒有到真的很明顯，畢竟兩者都可以產品化。<br>
+<strong>開發工具</strong>：兩者差不多，都可以 live reload，但 Flutter 的 live reload 可以保持目前狀態。<br>
+<strong>元件與API</strong>：React native 歷史較長久，有累積不少好用的元件與 API 可以加速開發。<br>
+<strong>社群人數</strong>：一樣 React native 歷史較長久，StackOverflow 上可以找到大部分問題的解答，Flutter 可能就需要自行處理問題或發問等大神回覆。</p>
+<hr>
+<p>在手機跨平台的 framework 當中，討論度最高的 framework 就是 React Native 與 Flutter，從下圖的 google trend 中可以看的出來最近兩者的搜尋次數是差不多的。而 Flutter 是有後來居上的趨勢，未來可望超過 React native。</p>
+<p><img src="https://i.imgur.com/Ebi7Qun.png" alt="RNvsFlutter"></p>
+<p><strong>效能比較：</strong></p>
+<p>APP 的效能就程式架構來說，Flutter 有經過 c/c++ compile 理論上是會勝過 React native，但網路上有文章說兩者的效能其實是差不多的，這個部分有興趣可以做點實驗來研究，<strong>重點是兩者的效能都很不錯，都是真正可以產品化的技術。</strong></p>
+<p><strong>開發工具：</strong></p>
+<p>兩者的開發工具都有支援 Live reload 可以讓你改文 code 後儲存馬上就反應，所以開發起來都很快速順暢，但 Flutter 又更厲害一點，因為他可以保持目前的狀態(詳情請看 <a href="https://flutter.dev/">Flutter 官方網站</a>)。</p>
+<p><strong>元件與API：</strong></p>
+<p>這個部分就是React native 大勝，畢竟發展的歷史比起 Flutter 長了許多，累積了不少好用的元件與API (ex: Image Picker、Photo library api)，雖然兩者都可以透過實作 native language api 的方式來完成所有平台可以做到的事情，但有現成且好用的元件就大大減少了許多需要自行處理的問題。<strong>如果是想要 prototype 或是產品有迫切的時程壓力可能就要好好比較一下關鍵的元件是否缺失。</strong></p>
+<p><strong>社群人數：</strong></p>
+<p>React native 有較長的歷史，留下的痕跡絕對是比 Flutter 多上許多的，所以在開發中遇到的問題，基本上 StackOverflow 都有人解答過了，省去了不少查資料翻 api 的時間。</p>
+<hr>
+<p><strong>最後來提一下為何會嘗試了兩個 Framework。</strong></p>
+<p>最近 side project 想做一個關於照片整理與上傳的 app，就嘗試了發展一段時間的 React native。因為有 React 的基礎所以實作起來真的很順手，直到遇到了照片上傳…。</p>
+<p>React native 以 javascript 為 engine，建立了 javascript 與 native language 之間的 bridge，讓開發者可以在 javascript 中就完成 app 的建置。而這個 bridge 主要是使用 JSON string 來溝通。</p>
+<p>雖然在 Browser 跟 node 的環境都有支援 blob，但不知道為什麼 React native 的環境 blob 的支援很殘破，想要上傳檔案都只能透過 React native API 將 local file 轉成 base64 的格式，才能做後續的處理。</p>
+<p>查了許多資料，花了好幾天的時候一直都無法克服檔案上傳的問題(因為使用的雲端上傳 API 只支援 binary 檔案上傳，base64 轉檔一直無法成功)，所以就找到了 Flutter。</p>
+<p>在花了三天看完 Flutter 的介紹與 tutorial 後，確定 Flutter 可以解決我遇到的檔案傳輸問題後，就準備開始了移植 React native code 的工程，結果還沒開始移植就遇到了問題。<strong>我沒辦法取得手機裡面的照片…</strong></p>
+<p>查了許久發現好像沒有相關的 API，所以得自己寫 native code 來取得資料，查到這裡我就放棄 Flutter 了，如果要寫 native code 就直接用 React native 就好。</p>
+<p>在只是一個小 project 的情況下，我放棄了 Flutter 選擇回到了 API 還有元件較多的 React native，並放棄了資料上傳這件事。畢竟 React native 的 API 有支援照片存取，至少還可以寫整理相片的部分，沒有相關存取照片的 API 就算可以上傳 binary 資料也沒用，因為根本沒東西可以傳啊……</p>
+
+      </article>
+      
+
+      
+
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer class="footer">
+  <div class="ax-l-i max-w-6xl">
+    <nav class="flex items-center justify-center">
+      <a class="ml-3 first:ml-0 text-sm text-gray-600 hover:text-gray-800" href="/posts/">Posts</a>
+    </nav>
+    <div class="footer-social flex items-center justify-center mt-4">
+      <a class="block mx-3 w-6 h-6 text-raven-700 hover:text-raven-900" target="_blank" rel="noopener nofollow" title="Github" href="https://github.com/aaronjen"><svg class="fill-current" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M15.998 0C7.164 0 0 7.35 0 16.417 0 23.67 4.584 29.82 10.944 31.994c.8.15 1.092-.356 1.092-.79l-.022-2.792c-4.45.99-5.4-2.202-5.4-2.202-.726-1.896-1.776-2.4-1.776-2.4-1.454-1.018.108-.998.108-.998 1.606.117 2.45 1.693 2.45 1.693 1.428 2.507 3.746 1.784 4.658 1.363.144-1.06.558-1.784 1.016-2.195-3.552-.415-7.288-1.823-7.288-8.113 0-1.792.624-3.258 1.648-4.406-.166-.415-.714-2.085.156-4.344 0 0 1.344-.44 4.4 1.683 1.276-.364 2.644-.546 4.006-.552a14.98 14.98 0 0 1 4.006.554C23.062 6.37 24.404 6.8 24.404 6.8c.872 2.26.324 3.93.16 4.344 1.026 1.148 1.644 2.614 1.644 4.406 0 6.306-3.74 7.694-7.304 8.1.574.507 1.086 1.51 1.086 3.04l-.02 4.503c0 .44.288.95 1.1.788C27.42 29.817 32 23.667 32 16.417 32 7.35 24.836 0 15.998 0z"/></svg></a>
+    </div>
+
+    <div class="footer-copyright text-sm text-center text-gray-500 mt-4">
+      &#169; 2020-2021 Aaron Jen&#39;s Blog
+    </div>
+    <div class="text-sm sm:text-xs text-center text-gray-500 mt-2">
+      Powered by <a href="https://www.axiomtheme.com/?utm_source=theme-footer&utm_medium=website&utm_campaign=referral">Axiom</a> and <a href="https://gohugo.io/">Hugo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/bundle.js?v=1611547495"></script>
+
+
+</body>
+</html>
